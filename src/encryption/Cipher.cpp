@@ -13,22 +13,50 @@
 using namespace CryptoPP;
 
 std::string Cipher::decrypt(std::string cipher) {
+    HexDecoder decoder;
+
+    std::string c;
+    c.resize(cipher.size()/2-AES::BLOCKSIZE);
+    SecByteBlock iv(AES::BLOCKSIZE);
+
+    decoder.Put((byte*)&cipher[0], cipher.size());
+
+    decoder.Get(iv, AES::BLOCKSIZE);
+
+    decoder.Get((byte*)&c[0], c.size());
+
+    std::string plain;
+
+    try {
+        CBC_Mode< AES >::Decryption d;
+        d.SetKeyWithIV(this->key, this->key.size(), iv);
+
+        StringSource s(c, true,
+            new StreamTransformationFilter(d,
+                new StringSink(plain)));
+    } catch(const Exception& e) {
+        std::cerr << e.what() << std::endl;
+        exit(1);
+    }
+
+    return plain;
 }
 
 std::string Cipher::encrypt(std::string plain) {
     AutoSeededRandomPool prng;
+    HexEncoder encoder(NULL);
 
-    SecByteBlock key(AES::DEFAULT_KEYLENGTH);
+
     SecByteBlock iv(AES::BLOCKSIZE);
 
-    prng.GenerateBlock(key, key.size());
     prng.GenerateBlock(iv, iv.size());
+
 
     std::string cipher;
 
     try {
         CBC_Mode< AES >::Encryption e;
-        e.SetKeyWithIV(key, key.size(), iv);
+        e.SetKeyWithIV(this->key, this->key.size(), iv);
 
         StringSource s(plain, true,
             new StreamTransformationFilter(e,
@@ -40,5 +68,13 @@ std::string Cipher::encrypt(std::string plain) {
         exit(1);
     }
 
-    return cipher;
+    encoder.Put(iv, iv.size());
+    encoder.Put((const byte*)&cipher[0], cipher.size());
+
+    std::string out;
+    word64 size = encoder.MaxRetrievable();
+    out.resize(size);
+    encoder.Get((byte*)&out[0], out.size());
+
+    return out;
 }
