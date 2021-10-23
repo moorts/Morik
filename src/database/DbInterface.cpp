@@ -15,13 +15,6 @@ DbInterface::~DbInterface()
     sqlite3_close(db);
 }
 
-//static int callback(void* data, int argc, char** argv, char** azColName)
-//{
-//    auto pw = static_cast<std::string*>(data);
-//    *pw = argv[0];
-//    return 0;
-//}
-
 std::string DbInterface::get_password(const std::string &name) const
 {
     auto callback = [](void* data, int argc, char** argv, char** azColName)
