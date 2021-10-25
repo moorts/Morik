@@ -2,15 +2,23 @@
 // Created by moorts on 25.10.21.
 //
 
-#ifndef SRC_AES_H
-#define SRC_AES_H
+#ifndef SRC_AES_CBC_H
+#define SRC_AES_CBC_H
 
-#include <iostream>
+#include "Cipher.h"
+#include <cryptopp/cryptlib.h>
+#include <cryptopp/rijndael.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/osrng.h>
+#include <cryptopp/files.h>
 #include <cryptopp/hex.h>
 
-class AESCipher : public CipherBase {
+using namespace CryptoPP;
+
+class AES_CBC : public Cipher {
+
 public:
-    static std::string encrypt(std::string pw, SecByteBlock key) {
+    std::string encrypt(std::string plain, SecByteBlock* key) const {
         AutoSeededRandomPool prng;
         HexEncoder encoder(nullptr);
 
@@ -21,10 +29,10 @@ public:
         std::string cipher;
 
         try {
-            CBC_Mode< AES >::Encryption e;
-            e.SetKeyWithIV(key, key.size(), iv);
+            CBC_Mode<AES>::Encryption e;
+            e.SetKeyWithIV(*key, key->size(), iv);
 
-            StringSource s(pw, true,
+            StringSource s(plain, true,
                            new StreamTransformationFilter(e,
                                                           new StringSink(cipher)
                            )
@@ -45,7 +53,7 @@ public:
         return out;
     }
 
-    static std::string decrypt(std::string cipher, SecByteBlock key) {
+    std::string decrypt(std::string cipher, SecByteBlock* key) const {
         HexDecoder decoder;
 
         std::string c;
@@ -62,7 +70,7 @@ public:
 
         try {
             CBC_Mode< AES >::Decryption d;
-            d.SetKeyWithIV(key, key.size(), iv);
+            d.SetKeyWithIV(*key, key->size(), iv);
 
             StringSource s(c, true,
                            new StreamTransformationFilter(d,
@@ -73,9 +81,9 @@ public:
         }
 
         return plain;
-
     }
+
 };
 
 
-#endif //SRC_AES_H
+#endif //SRC_AES_CBC_H

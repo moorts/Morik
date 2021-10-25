@@ -6,5 +6,5 @@ SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(src main.cpp encryption/Cipher.cpp encryption/Cipher.h encryption/PasswordEncryptionHandler.h encryption/KeyDerivation.h encryption/AES.h encryption/CipherBase.h application/DbInterface.cpp application/DbInterface.h plugins/database/SQLiteDatabase.cpp plugins/database/SQLiteDatabase.h application/AbstractDatabase.h)
+add_executable(src main.cpp encryption/Cipher.h encryption/PasswordEncryptionHandler.h encryption/KeyDerivation.h encryption/AESCipher.h encryption/CipherBase.h encryption/Encryption.h encryption/AES_CBC.h application/DbInterface.cpp application/DbInterface.h plugins/database/SQLiteDatabase.cpp plugins/database/SQLiteDatabase.h application/AbstractDatabase.h)
 target_link_libraries(src sqlite3)
