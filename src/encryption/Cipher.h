@@ -22,9 +22,9 @@ public:
         prng.GenerateBlock(key, key.size());
     }
 
-    std::string encrypt(std::string plain);
+    std::string encrypt(std::string plain) const;
 
-    std::string decrypt(std::string cipher);
+    std::string decrypt(std::string cipher) const;
 
 private:
     SecByteBlock key;

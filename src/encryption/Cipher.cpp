@@ -12,7 +12,7 @@
 
 using namespace CryptoPP;
 
-std::string Cipher::decrypt(std::string cipher) {
+std::string Cipher::decrypt(std::string cipher) const {
     HexDecoder decoder;
 
     std::string c;
@@ -42,9 +42,9 @@ std::string Cipher::decrypt(std::string cipher) {
     return plain;
 }
 
-std::string Cipher::encrypt(std::string plain) {
+std::string Cipher::encrypt(std::string plain) const {
     AutoSeededRandomPool prng;
-    HexEncoder encoder(NULL);
+    HexEncoder encoder(nullptr);
 
 
     SecByteBlock iv(AES::BLOCKSIZE);
