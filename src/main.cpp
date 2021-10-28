@@ -2,9 +2,8 @@
 #include "plugins/database/SQLiteDatabase.h"
 #include "encryption/Cipher.h"
 #include "encryption/PasswordEncryptionHandler.h"
-#include "encryption/CipherBase.h"
-#include "encryption/AESCipher.h"
-#include "encryption/AES_CBC.h"
+#include "encryption/BLOCK.h"
+#include "encryption/CBC_Cipher.h"
 
 
 int main() {
