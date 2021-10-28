@@ -14,9 +14,9 @@ using namespace CryptoPP;
 
 class Cipher {
 public:
-    virtual std::string encrypt(std::string plain, SecByteBlock* key) const = 0;
+    virtual std::string encrypt(std::string plain, SecByteBlock key) const = 0;
 
-    virtual std::string decrypt(std::string cipher, SecByteBlock* key) const = 0;
+    virtual std::string decrypt(std::string cipher, SecByteBlock key) const = 0;
 };
 
 

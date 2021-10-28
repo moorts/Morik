@@ -4,6 +4,7 @@
 #include "encryption/PasswordEncryptionHandler.h"
 #include "encryption/BLOCK.h"
 #include "encryption/CBC_Cipher.h"
+#include "encryption/EncryptionInterface.h"
 
 
 int main() {

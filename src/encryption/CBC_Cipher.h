@@ -21,7 +21,7 @@ public:
         this->b = b;
     }
 
-    std::string encrypt(std::string plain, SecByteBlock *key) const {
+    std::string encrypt(std::string plain, SecByteBlock key) const {
         AutoSeededRandomPool prng;
         HexEncoder encoder(nullptr);
 
@@ -35,7 +35,7 @@ public:
             switch (this->b) {
                 case BLOCK::AES: {
                     CBC_Mode<CryptoPP::AES>::Encryption e;
-                    e.SetKeyWithIV(*key, key->size(), iv);
+                    e.SetKeyWithIV(key, key.size(), iv);
 
                     StringSource s(plain, true,
                                    new StreamTransformationFilter(e,
@@ -46,7 +46,7 @@ public:
                 }
                 case BLOCK::Serpent: {
                     CBC_Mode<CryptoPP::Serpent>::Encryption e;
-                    e.SetKeyWithIV(*key, key->size(), iv);
+                    e.SetKeyWithIV(key, key.size(), iv);
 
                     StringSource s(plain, true,
                                    new StreamTransformationFilter(e,
@@ -72,7 +72,7 @@ public:
         return out;
     }
 
-    std::string decrypt(std::string cipher, SecByteBlock *key) const {
+    std::string decrypt(std::string cipher, SecByteBlock key) const {
         HexDecoder decoder;
 
         std::string c;
@@ -91,7 +91,7 @@ public:
             switch (this->b) {
                 case BLOCK::AES: {
                     CBC_Mode<CryptoPP::AES>::Decryption d;
-                    d.SetKeyWithIV(*key, key->size(), iv);
+                    d.SetKeyWithIV(key, key.size(), iv);
 
                     StringSource s(c, true,
                                    new StreamTransformationFilter(d,
@@ -100,7 +100,7 @@ public:
                 }
                 case BLOCK::Serpent: {
                     CBC_Mode<CryptoPP::Serpent>::Decryption d;
-                    d.SetKeyWithIV(*key, key->size(), iv);
+                    d.SetKeyWithIV(key, key.size(), iv);
 
                     StringSource s(c, true,
                                    new StreamTransformationFilter(d,
