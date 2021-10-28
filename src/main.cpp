@@ -1,6 +1,8 @@
-#include "database/DbInterface.h"
+#include "application/DbInterface.h"
+#include "plugins/database/SQLiteDatabase.h"
 
 int main() {
-    DbInterface dbInterface("passwords.db");
+    const Plugins::Database::SQLiteDatabase database("passwords.db");
+    DatabaseInterface::DbInterface dbInterface(&database);
     return 0;
 }
