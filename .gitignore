@@ -34,3 +34,45 @@
 # CLion stuff
 **/.idea/
 src/cmake-build-*/
+
+# ========== LaTeX ===============
+*.acn
+*.acr
+*.alg
+*.fls
+*.synctex(busy)
+*.fdb_latexmk
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lol
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
+*.toc
+*.bcf
+*.run.xml
+
+# ========== Windows ===============
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
