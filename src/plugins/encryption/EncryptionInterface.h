@@ -8,7 +8,7 @@
 
 class EncryptionInterface {
 public:
-    EncryptionInterface(Cipher* cipher) {
+    EncryptionInterface(const Cipher* cipher) {
         this->c = cipher;
     }
 
@@ -21,7 +21,7 @@ public:
     }
 
 private:
-    Cipher* c;
+    const Cipher* c;
 
 };
 
