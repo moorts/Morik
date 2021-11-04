@@ -1,10 +1,10 @@
 #include "application/DbInterface.h"
 #include "plugins/database/SQLiteDatabase.h"
-#include "encryption/Cipher.h"
-#include "encryption/PasswordEncryptionHandler.h"
-#include "encryption/BLOCK.h"
-#include "encryption/CBC_Cipher.h"
-#include "encryption/EncryptionInterface.h"
+#include "plugins/encryption/Cipher.h"
+#include "plugins/encryption/PasswordEncryptionHandler.h"
+#include "plugins/encryption/BLOCK.h"
+#include "plugins/encryption/CBC_Cipher.h"
+#include "plugins/encryption/EncryptionInterface.h"
 
 
 int main() {
