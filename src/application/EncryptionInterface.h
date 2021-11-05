@@ -5,6 +5,8 @@
 #ifndef SRC_ENCRYPTIONINTERFACE_H
 #define SRC_ENCRYPTIONINTERFACE_H
 
+#include "../plugins/encryption/KeyDerivation.h"
+
 
 class EncryptionInterface {
 public:
