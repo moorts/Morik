@@ -5,7 +5,7 @@
 #ifndef SRC_CBC_CIPHER_H
 #define SRC_CBC_CIPHER_H
 
-#include "Cipher.h"
+#include "../../application/Cipher.h"
 #include "BLOCK.h"
 #include <cryptopp/cryptlib.h>
 #include <cryptopp/rijndael.h>
@@ -21,9 +21,9 @@ public:
         this->b = b;
     }
 
-    std::string encrypt(std::string plain, SecByteBlock key) const;
+    std::string encrypt(std::string plain, std::string master) const;
 
-    std::string decrypt(std::string cipher, SecByteBlock key) const;
+    std::string decrypt(std::string cipher, std::string master) const;
 
 private:
     BLOCK b;
