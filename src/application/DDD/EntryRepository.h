@@ -10,10 +10,10 @@ namespace DDD::Repositories {
     class EntryRepository {
     public:
         EntryRepository(const DatabaseInterface::DbInterface &dbInterface) : dbInterface(dbInterface) {}
-        void store(const Entry &entry);
-        Entry getEntry(EntryId id);
-        std::set<Entry> find(EntryName name);
-        EntryId nextId();
+        void store(const Entities::Entry &entry);
+        Entities::Entry getEntry(ValueObjects::EntryId id);
+        std::set<Entities::Entry> find(ValueObjects::EntryName name);
+        ValueObjects::EntryId nextId();
     private:
         DatabaseInterface::DbInterface dbInterface;
     };
