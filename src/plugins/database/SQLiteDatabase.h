@@ -3,6 +3,7 @@
 
 #include <sqlite3.h>
 #include <string>
+#include <vector>
 #include "../../application/AbstractDatabase.h"
 
 namespace Plugins::Database
@@ -10,9 +11,9 @@ namespace Plugins::Database
 class SQLiteDatabase : public DatabaseInterface::AbstractDatabase
     {
     public:
-        SQLiteDatabase(const char *db_filename);
+        SQLiteDatabase(const char* dbFilename);
         ~SQLiteDatabase();
-        std::pair<std::string, std::string> execute_sql(const std::string &statement) const;
+        std::pair<std::vector<std::string>, std::string> executeSql(const std::string& statement) const;
     private:
         sqlite3 *db;
     };
