@@ -3,16 +3,16 @@
 
 #include "EntryId.h"
 #include "EntryName.h"
-#include "Username.h"
+#include "Login.h"
 #include "EncryptedPassword.h"
 
 namespace DDD::Entities {
     class Entry {
     public:
-        Entry(const ValueObjects::EntryId &id, const ValueObjects::EntryName &name, const ValueObjects::Username &username, const ValueObjects::EncryptedPassword &password)
+        Entry(const ValueObjects::EntryId &id, const ValueObjects::EntryName &name, const ValueObjects::Login &username, const ValueObjects::EncryptedPassword &password)
             : id(id), name(name), username(username), password(password) {}
         ValueObjects::EntryName name;
-        ValueObjects::Username username;
+        ValueObjects::Login username;
         ValueObjects::EncryptedPassword password;
         const ValueObjects::EntryId getId() { return id; }
         bool operator==(const Entry &other) const { return other.id == id; }
