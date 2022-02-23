@@ -7,7 +7,7 @@ namespace DDD::ValueObjects {
     class PlaintextPassword final {
     public:
         PlaintextPassword(const std::string &plaintext) : plaintext(plaintext) {}
-        std::string getPlaintext() { return plaintext; }
+        std::string getString() const { return plaintext; }
         bool operator==(const PlaintextPassword &other) const { return other.plaintext == plaintext; }
     private:
         const std::string plaintext;

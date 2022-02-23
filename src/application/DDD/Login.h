@@ -6,11 +6,11 @@
 namespace DDD::ValueObjects {
     class Login final {
     public:
-        Login(const std::string &name) : name(name) {}
-        std::string getPlaintext() { return name; }
-        bool operator==(const Login &other) const { return other.name == name; }
+        Login(const std::string &login) : login(login) {}
+        std::string getString() const { return login; }
+        bool operator==(const Login &other) const { return other.login == login; }
     private:
-        const std::string name;
+        const std::string login;
     };
 } // DDD::ValueObjects
 

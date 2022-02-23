@@ -7,7 +7,7 @@ namespace DDD::ValueObjects {
     class EncryptedPassword final {
     public:
         EncryptedPassword(const std::string &encrypted) : encrypted(encrypted) {}
-        std::string getPlaintext() { return encrypted; }
+        std::string getString() const { return encrypted; }
         bool operator==(const EncryptedPassword &other) const { return other.encrypted == encrypted; }
     private:
         const std::string encrypted;

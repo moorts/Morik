@@ -9,15 +9,16 @@
 namespace DDD::Entities {
     class Entry {
     public:
-        Entry(const ValueObjects::EntryId &id, const ValueObjects::EntryName &name, const ValueObjects::Login &username, const ValueObjects::EncryptedPassword &password)
-            : id(id), name(name), username(username), password(password) {}
-        ValueObjects::EntryName name;
-        ValueObjects::Login username;
-        ValueObjects::EncryptedPassword password;
-        const ValueObjects::EntryId getId() { return id; }
-        bool operator==(const Entry &other) const { return other.id == id; }
+        Entry(const ValueObjects::EntryId &entryId, const ValueObjects::EntryName &entryName, const ValueObjects::Login &login, const ValueObjects::EncryptedPassword &encryptedPassword)
+            : entryId(entryId), entryName(entryName), login(login), encryptedPassword(encryptedPassword) {}
+        ValueObjects::EntryName entryName;
+        ValueObjects::Login login;
+        ValueObjects::EncryptedPassword encryptedPassword;
+        const ValueObjects::EntryId getEntryId() const { return entryId; }
+        bool operator==(const Entry &other) const { return other.entryId == entryId; }
+        bool operator<(const Entry &other) const { return other.entryId < entryId; }
     private:
-        const ValueObjects::EntryId id;
+        const ValueObjects::EntryId entryId;
     };
 } // DDD::Entities
 
