@@ -2,7 +2,9 @@
 #define SRC_DBINTERFACE_H
 
 #include <string>
+#include <set>
 #include "AbstractDatabase.h"
+#include "DatabaseColumn.h"
 
 namespace DatabaseInterface
 {
@@ -10,8 +12,14 @@ namespace DatabaseInterface
     {
     public:
         DbInterface(const AbstractDatabase *const database) { db = database; };
-        std::string get_password(const std::string &name) const;
-        bool insert_password(const std::string &name, const std::string &pw) const;
+        DDD::Entities::Entry getEntry(const DDD::ValueObjects::EntryId &entryId) const;
+        std::set<DDD::Entities::Entry> getEntries(const DDD::ValueObjects::EntryName &entryName) const;
+        std::set<DDD::Entities::Entry> getAllEntries() const;
+        bool insertEntry(const DDD::Entities::Entry &entry) const;
+        bool removeEntry(const DDD::ValueObjects::EntryId &entryId) const;
+        bool removeEntry(const DDD::Entities::Entry &entry) const;
+        bool modifyEntry(const DDD::ValueObjects::EntryId &entryId, const DatabaseColumn &column, const std::string &newValue) const;
+        bool modifyEntry(const DDD::Entities::Entry &entry, const DatabaseColumn &column, const std::string &newValue) const;
     private:
         const AbstractDatabase *db;
     };

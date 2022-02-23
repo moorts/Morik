@@ -1,7 +1,9 @@
 #include "SQLiteDatabase.h"
 #include <iostream>
+#include "../../application/DDD/EntryFactory.h"
 
 using namespace Plugins::Database;
+using namespace DDD::Entities;
 
 SQLiteDatabase::SQLiteDatabase(const char* dbFilename)
 {
@@ -17,47 +19,40 @@ SQLiteDatabase::~SQLiteDatabase()
     sqlite3_close(db);
 }
 
-std::pair<std::vector<std::string>, std::string> SQLiteDatabase::executeSql(const std::string& statement) const
+std::pair<std::set<Entry>, std::string> SQLiteDatabase::executeSql(const std::string& statement) const
 {
-    struct dbDataSet_t
-    {
-        unsigned int id;
-        std::string name;
-        std::string username;
-        std::string pw;
-    };
     auto callback = [](void* data, int argc, char** argv, char** azColName)
     {
-        auto returnValues = static_cast<std::vector<dbDataSet_t>*>(data);
-        dbDataSet_t dbDataSet;
+        auto returnValues = static_cast<std::set<Entry>*>(data);
+        unsigned int id;
+        std::string entryNameString;
+        std::string loginString;
+        std::string encryptedPasswordString;
         for (int i = 0; i < argc; ++i)
         {
             std::string colName = azColName[i];
-            if (colName == "id")
-                dbDataSet.id = atoi(argv[i]);
-            else if (colName == "name")
-                dbDataSet.name = argv[i];
-            else if (colName == "username")
-                dbDataSet.username = argv[i];
-            else if (colName == "password")
-                dbDataSet.pw = argv[i];
+            if (colName == "EntryId")
+                id = atoi(argv[i]);
+            else if (colName == "EntryName")
+                entryNameString = argv[i];
+            else if (colName == "Login")
+            {
+                if (argv[i])
+                    loginString = argv[i];
+            }
+            else if (colName == "EncryptedPassword")
+                encryptedPasswordString = argv[i];
         }
-        returnValues->emplace_back(dbDataSet);
+        Entry entry = DDD::Factories::EntryFactory::createEntry(id, entryNameString, loginString, encryptedPasswordString);
+        returnValues->emplace(entry);
         return 0;
     };
-    std::vector<dbDataSet_t> returnValues;
+    std::set<Entry> returnValues;
     char* errMsg;
     int returnCode = sqlite3_exec(db, statement.c_str(), callback, &returnValues, &errMsg);
     if (returnCode != SQLITE_OK) {
         std::cout << "SQL error: " << errMsg << std::endl;
     }
 
-    // temporary test code
-    std::vector<std::string> passwords;
-    for (dbDataSet_t dataSet : returnValues)
-    {
-        passwords.emplace_back(dataSet.pw);
-    }
-
-    return std::make_pair(passwords, !errMsg ? "" : std::string(errMsg));
+    return std::make_pair(returnValues, !errMsg ? "" : std::string(errMsg));
 }
