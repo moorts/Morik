@@ -13,10 +13,7 @@ void EntryRepository::createInstance(const DatabaseInterface::DbInterface &dbInt
 
 EntryRepository* EntryRepository::getInstance()
 {
-    if (instance)
-        return instance;
-    else
-        return nullptr;
+    return instance;
 }
 
 Entities::Entry EntryRepository::getEntry(ValueObjects::EntryId entryId) const
