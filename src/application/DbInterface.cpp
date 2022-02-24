@@ -45,11 +45,6 @@ bool DbInterface::removeEntry(const DDD::ValueObjects::EntryId &entryId) const
     return true;
 }
 
-bool DbInterface::removeEntry(const DDD::Entities::Entry &entry) const
-{
-    return removeEntry(entry.getEntryId());
-}
-
 bool DbInterface::modifyEntry(const DDD::ValueObjects::EntryId &entryId, const DatabaseColumn &column, const std::string &newValue) const
 {
     std::string columnString = getDatabaseColumnString(column);
@@ -60,9 +55,4 @@ bool DbInterface::modifyEntry(const DDD::ValueObjects::EntryId &entryId, const D
         return false;
     }
     return true;
-}
-
-bool DbInterface::modifyEntry(const DDD::Entities::Entry &entry, const DatabaseColumn &column, const std::string &newValue) const
-{
-    return modifyEntry(entry.getEntryId(), column, newValue);
 }

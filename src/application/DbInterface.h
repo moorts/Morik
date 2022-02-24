@@ -17,9 +17,7 @@ namespace DatabaseInterface
         std::set<DDD::Entities::Entry> getAllEntries() const;
         bool insertEntry(const DDD::Entities::Entry &entry) const;
         bool removeEntry(const DDD::ValueObjects::EntryId &entryId) const;
-        bool removeEntry(const DDD::Entities::Entry &entry) const;
         bool modifyEntry(const DDD::ValueObjects::EntryId &entryId, const DatabaseColumn &column, const std::string &newValue) const;
-        bool modifyEntry(const DDD::Entities::Entry &entry, const DatabaseColumn &column, const std::string &newValue) const;
     private:
         const AbstractDatabase *db;
     };
