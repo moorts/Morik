@@ -2,16 +2,14 @@
 #define SRC_ENTRYREPOSITORY_H
 
 #include <set>
-#include <memory>
 #include "../DbInterface.h"
 #include "Entry.h"
 #include "EntryId.h"
 
 namespace DDD::Repositories {
-    class EntryRepository final {
+    class EntryRepository {
     public:
-        static void createInstance(const DatabaseInterface::DbInterface &dbInterface);
-        static EntryRepository* getInstance();
+        EntryRepository(const DatabaseInterface::DbInterface &dbInterface) : dbInterface(dbInterface) {}
         Entities::Entry getEntry(ValueObjects::EntryId entryId) const;
         std::set<Entities::Entry> find(ValueObjects::EntryName entryName) const;
         void store(const Entities::Entry &entry) const;
@@ -20,12 +18,7 @@ namespace DDD::Repositories {
         void modifyLogin(const Entities::Entry &entry, const ValueObjects::Login &newLogin) const;
         void modifyEncryptedPassword(const Entities::Entry &entry, const ValueObjects::EncryptedPassword &newEncryptedPassword) const;
         ValueObjects::EntryId nextId() const;
-        EntryRepository(EntryRepository &other) = delete;
-        void operator=(const EntryRepository&) = delete;
     private:
-        explicit EntryRepository(const DatabaseInterface::DbInterface &dbInterface) : dbInterface(dbInterface) {}
-        ~EntryRepository() { delete instance; }
-        static EntryRepository* instance;
         DatabaseInterface::DbInterface dbInterface;
     };
 } // DDD::Repositories

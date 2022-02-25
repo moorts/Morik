@@ -3,19 +3,6 @@
 using namespace DDD;
 using namespace DDD::Repositories;
 
-EntryRepository* EntryRepository::instance = nullptr;
-
-void EntryRepository::createInstance(const DatabaseInterface::DbInterface &dbInterface)
-{
-    if (!instance)
-        instance = new EntryRepository(dbInterface);
-}
-
-EntryRepository* EntryRepository::getInstance()
-{
-    return instance;
-}
-
 Entities::Entry EntryRepository::getEntry(ValueObjects::EntryId entryId) const
 {
     return dbInterface.getEntry(entryId);

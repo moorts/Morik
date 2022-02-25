@@ -1,5 +1,6 @@
 #include "EntryFactory.h"
 #include "PlaintextPassword.h"
+#include "../InstanceManager.h"
 
 using namespace DDD::Factories;
 using namespace DDD::Entities;
@@ -14,12 +15,12 @@ Entry EntryFactory::createEntry(unsigned int id, std::string entryNameString, st
     return Entry(entryId, entryName, login, encryptedPassword);
 }
 
-//Entry EntryFactory::createEntryFromPlaintext(unsigned int id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString)
-//{
-//    EntryId entryId(id);
-//    EntryName entryName(entryNameString);
-//    Login login(loginString);
-//    PlaintextPassword plaintextPassword(plaintextPasswordString);
-//    EncryptedPassword encryptedPassword = PasswordEncrypter(plaintextPassword);
-//    return Entry(entryId, entryName, login, encryptedPassword);
-//}
+Entry EntryFactory::createEntryFromPlaintext(unsigned int id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString)
+{
+    EntryId entryId(id);
+    EntryName entryName(entryNameString);
+    Login login(loginString);
+    PlaintextPassword plaintextPassword(plaintextPasswordString);
+    EncryptedPassword encryptedPassword = InstanceManager::getInstance()->passwordEncryptor.encrypt(plaintextPassword);
+    return Entry(entryId, entryName, login, encryptedPassword);
+}
