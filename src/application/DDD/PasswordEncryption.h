@@ -11,8 +11,8 @@ namespace DDD::Services {
     class PasswordEncryptor {
     public:
         PasswordEncryptor(const Cipher* cipher, const ValueObjects::PlaintextPassword masterPassword) : cipher(cipher), masterPassword(masterPassword) {}
-        ValueObjects::EncryptedPassword encrypt(DDD::ValueObjects::PlaintextPassword password) {
-            return ValueObjects::EncryptedPassword(this->cipher->encrypt(password.getString(), this->masterPassword.getString()));
+        ValueObjects::EncryptedPassword encrypt(DDD::ValueObjects::PlaintextPassword plaintextPassword) {
+            return ValueObjects::EncryptedPassword(this->cipher->encrypt(plaintextPassword.getString(), this->masterPassword.getString()));
         }
     private:
         const Cipher* cipher;
@@ -22,8 +22,8 @@ namespace DDD::Services {
     class PasswordDecryptor {
     public:
         PasswordDecryptor(const Cipher* cipher, const ValueObjects::PlaintextPassword masterPassword) : cipher(cipher), masterPassword(masterPassword) {}
-        ValueObjects::PlaintextPassword decrypt(ValueObjects::EncryptedPassword password) {
-            return ValueObjects::PlaintextPassword(this->cipher->decrypt(password.getString(), this->masterPassword.getString()));
+        ValueObjects::PlaintextPassword decrypt(ValueObjects::EncryptedPassword encryptedPassword) {
+            return ValueObjects::PlaintextPassword(this->cipher->decrypt(encryptedPassword.getString(), this->masterPassword.getString()));
         }
     private:
         const Cipher* cipher;
