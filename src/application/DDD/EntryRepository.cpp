@@ -43,12 +43,12 @@ void EntryRepository::modifyEntryName(const Entities::Entry &entry, const ValueO
 
 void EntryRepository::modifyLogin(const Entities::Entry &entry, const ValueObjects::Login &newLogin) const
 {
-    dbInterface.modifyEntry(entry.getEntryId(), DatabaseInterface::DatabaseColumn::EntryName, newLogin.getString());
+    dbInterface.modifyEntry(entry.getEntryId(), DatabaseInterface::DatabaseColumn::Login, newLogin.getString());
 }
 
 void EntryRepository::modifyEncryptedPassword(const Entities::Entry &entry, const ValueObjects::EncryptedPassword &newEncryptedPassword) const
 {
-    dbInterface.modifyEntry(entry.getEntryId(), DatabaseInterface::DatabaseColumn::EntryName, newEncryptedPassword.getString());
+    dbInterface.modifyEntry(entry.getEntryId(), DatabaseInterface::DatabaseColumn::EncryptedPassword, newEncryptedPassword.getString());
 }
 
 ValueObjects::EntryId EntryRepository::nextId() const
