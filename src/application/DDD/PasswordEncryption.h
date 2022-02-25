@@ -10,22 +10,24 @@ using namespace DDD;
 namespace DDD::Services {
     class PasswordEncryptor {
     public:
-        PasswordEncryptor(const Cipher* cipher) : cipher(cipher) {}
-        ValueObjects::EncryptedPassword encrypt(DDD::ValueObjects::PlaintextPassword password, std::string master) {
-            return ValueObjects::EncryptedPassword(this->cipher->encrypt(password.getString(), master));
+        PasswordEncryptor(const Cipher* cipher, const ValueObjects::PlaintextPassword masterPassword) : cipher(cipher), masterPassword(masterPassword) {}
+        ValueObjects::EncryptedPassword encrypt(DDD::ValueObjects::PlaintextPassword password) {
+            return ValueObjects::EncryptedPassword(this->cipher->encrypt(password.getString(), this->masterPassword.getString()));
         }
     private:
         const Cipher* cipher;
+        const ValueObjects::PlaintextPassword masterPassword;
     };
 
     class PasswordDecryptor {
     public:
-        PasswordDecryptor(const Cipher* cipher) : cipher(cipher) {}
-        ValueObjects::PlaintextPassword decrypt(ValueObjects::EncryptedPassword password, std::string master) {
-            return ValueObjects::PlaintextPassword(this->cipher->decrypt(password.getString(), master));
+        PasswordDecryptor(const Cipher* cipher, const ValueObjects::PlaintextPassword masterPassword) : cipher(cipher), masterPassword(masterPassword) {}
+        ValueObjects::PlaintextPassword decrypt(ValueObjects::EncryptedPassword password) {
+            return ValueObjects::PlaintextPassword(this->cipher->decrypt(password.getString(), this->masterPassword.getString()));
         }
     private:
         const Cipher* cipher;
+        const ValueObjects::PlaintextPassword masterPassword;
     };
 }
 
