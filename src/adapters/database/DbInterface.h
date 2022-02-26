@@ -3,15 +3,16 @@
 
 #include <string>
 #include <set>
-#include "AbstractDatabase.h"
-#include "DatabaseColumn.h"
+#include "../../application/AbstractDatabaseInterface.h"
+#include "AbstractSqlDatabase.h"
+#include "../../application/DatabaseColumn.h"
 
-namespace DatabaseInterface
+namespace Adapters::Database
 {
-    class DbInterface
+    class DbInterface : public AbstractDatabaseInterface
     {
     public:
-        DbInterface(const AbstractDatabase *const database) { db = database; };
+        DbInterface(const AbstractSqlDatabase *const database) { db = database; };
         DDD::Entities::Entry getEntry(const DDD::ValueObjects::EntryId &entryId) const;
         std::set<DDD::Entities::Entry> getEntries(const DDD::ValueObjects::EntryName &entryName) const;
         std::set<DDD::Entities::Entry> getAllEntries() const;
@@ -19,8 +20,8 @@ namespace DatabaseInterface
         bool removeEntry(const DDD::ValueObjects::EntryId &entryId) const;
         bool modifyEntry(const DDD::ValueObjects::EntryId &entryId, const DatabaseColumn &column, const std::string &newValue) const;
     private:
-        const AbstractDatabase *db;
+        const AbstractSqlDatabase *db;
     };
-} // DatabaseInterface
+} // Adapters::Database
 
 #endif //SRC_DBINTERFACE_H

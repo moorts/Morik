@@ -3,11 +3,11 @@
 
 #include <sqlite3.h>
 #include <string>
-#include "../../application/AbstractDatabase.h"
+#include "../../adapters/database/AbstractSqlDatabase.h"
 
 namespace Plugins::Database
 {
-class SQLiteDatabase : public DatabaseInterface::AbstractDatabase
+class SQLiteDatabase : public Adapters::Database::AbstractSqlDatabase
     {
     public:
         SQLiteDatabase(const char* dbFilename);
@@ -16,6 +16,6 @@ class SQLiteDatabase : public DatabaseInterface::AbstractDatabase
     private:
         sqlite3 *db;
     };
-} // Plugins::AbstractDatabase
+} // Plugins::AbstractSqlDatabase
 
 #endif //SRC_SQLITEDATABASE_H

@@ -1,6 +1,6 @@
 #include "DbInterface.h"
 
-using namespace DatabaseInterface;
+using namespace Adapters::Database;
 
 DDD::Entities::Entry DbInterface::getEntry(const DDD::ValueObjects::EntryId &entryId) const
 {
