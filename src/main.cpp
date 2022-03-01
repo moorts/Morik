@@ -18,7 +18,7 @@ int main() {
     const DDD::Services::PasswordEncryptor passwordEncryptor(c, masterPassword);
     const DDD::Services::PasswordDecryptor passwordDecryptor(c, masterPassword);
 
-    InstanceManager::createInstance(entryRepository, passwordEncryptor, passwordDecryptor);
+    InstanceManager::addPointers(&entryRepository, &passwordEncryptor, &passwordDecryptor);
 
     return 0;
 }

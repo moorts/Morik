@@ -4,19 +4,17 @@
 #include "DDD/EntryRepository.h"
 #include "DDD/PasswordEncryption.h"
 
-class InstanceManager final {
+class InstanceManager {
 public:
-    static void createInstance(const DDD::Repositories::EntryRepository &entryRepository, const DDD::Services::PasswordEncryptor &passwordEncryptor, const DDD::Services::PasswordDecryptor &passwordDecryptor);
-    static InstanceManager* getInstance();
-    InstanceManager(InstanceManager &other) = delete;
-    void operator=(const InstanceManager&) = delete;
-    const DDD::Repositories::EntryRepository entryRepository;
-    const DDD::Services::PasswordEncryptor passwordEncryptor;
-    const DDD::Services::PasswordDecryptor passwordDecryptor;
-private:
-    explicit InstanceManager(const DDD::Repositories::EntryRepository &entryRepository, const DDD::Services::PasswordEncryptor &passwordEncryptor, const DDD::Services::PasswordDecryptor &passwordDecryptor) : entryRepository(entryRepository), passwordEncryptor(passwordEncryptor), passwordDecryptor(passwordDecryptor) {}
-    ~InstanceManager() { delete instance; }
-    static InstanceManager* instance;
+    static void addPointers(const DDD::Repositories::EntryRepository* pEntryRepository, const DDD::Services::PasswordEncryptor* pPasswordEncryptor, const DDD::Services::PasswordDecryptor* pPasswordDecryptor)
+    {
+        entryRepository = pEntryRepository;
+        passwordEncryptor = pPasswordEncryptor;
+        passwordDecryptor = pPasswordDecryptor;
+    }
+    static const DDD::Repositories::EntryRepository* entryRepository;
+    static const DDD::Services::PasswordEncryptor* passwordEncryptor;
+    static const DDD::Services::PasswordDecryptor* passwordDecryptor;
 };
 
 

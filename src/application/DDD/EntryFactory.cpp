@@ -20,6 +20,6 @@ Entry EntryFactory::createEntryFromPlaintext(unsigned int id, std::string entryN
     DDD::ValueObjects::EntryName entryName(entryNameString);
     DDD::ValueObjects::Login login(loginString);
     DDD::ValueObjects::PlaintextPassword plaintextPassword(plaintextPasswordString);
-    DDD::ValueObjects::EncryptedPassword encryptedPassword = InstanceManager::getInstance()->passwordEncryptor.encrypt(plaintextPassword);
+    DDD::ValueObjects::EncryptedPassword encryptedPassword = InstanceManager::passwordEncryptor->encrypt(plaintextPassword);
     return Entry(entryId, entryName, login, encryptedPassword);
 }

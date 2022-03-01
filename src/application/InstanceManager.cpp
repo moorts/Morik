@@ -1,14 +1,5 @@
 #include "InstanceManager.h"
 
-InstanceManager* InstanceManager::instance = nullptr;
-
-void InstanceManager::createInstance(const DDD::Repositories::EntryRepository &entryRepository, const DDD::Services::PasswordEncryptor &passwordEncryptor, const DDD::Services::PasswordDecryptor &passwordDecryptor)
-{
-    if (!instance)
-        instance = new InstanceManager(entryRepository, passwordEncryptor, passwordDecryptor);
-}
-
-InstanceManager* InstanceManager::getInstance()
-{
-    return instance;
-}
+const DDD::Repositories::EntryRepository* InstanceManager::entryRepository = nullptr;
+const DDD::Services::PasswordEncryptor* InstanceManager::passwordEncryptor = nullptr;
+const DDD::Services::PasswordDecryptor* InstanceManager::passwordDecryptor = nullptr;
