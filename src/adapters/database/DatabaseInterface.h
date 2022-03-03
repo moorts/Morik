@@ -1,5 +1,5 @@
-#ifndef SRC_DBINTERFACE_H
-#define SRC_DBINTERFACE_H
+#ifndef SRC_DATABASEINTERFACE_H
+#define SRC_DATABASEINTERFACE_H
 
 #include <string>
 #include <set>
@@ -9,10 +9,10 @@
 
 namespace Adapters::Database
 {
-    class DbInterface : public AbstractDatabaseInterface
+    class DatabaseInterface : public AbstractDatabaseInterface
     {
     public:
-        DbInterface(const AbstractSqlDatabase *const database) { db = database; };
+        DatabaseInterface(const AbstractSqlDatabase *const database) { db = database; };
         DDD::Entities::Entry getEntry(const DDD::ValueObjects::EntryId &entryId) const;
         std::set<DDD::Entities::Entry> getEntries(const DDD::ValueObjects::EntryName &entryName) const;
         std::set<DDD::Entities::Entry> getAllEntries() const;
@@ -24,4 +24,4 @@ namespace Adapters::Database
     };
 } // Adapters::Database
 
-#endif //SRC_DBINTERFACE_H
+#endif //SRC_DATABASEINTERFACE_H

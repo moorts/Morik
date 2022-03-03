@@ -2,24 +2,23 @@
 #include "PlaintextPassword.h"
 #include "../InstanceManager.h"
 
-using namespace DDD::Factories;
-using namespace DDD::Entities;
+using namespace DDD;
 
-Entry EntryFactory::createEntry(unsigned int id, std::string entryNameString, std::string loginString, std::string encryptedPasswordString)
+Entities::Entry Factories::EntryFactory::createEntry(unsigned int id, std::string entryNameString, std::string loginString, std::string encryptedPasswordString)
 {
-    DDD::ValueObjects::EntryId entryId(id);
-    DDD::ValueObjects::EntryName entryName(entryNameString);
-    DDD::ValueObjects::Login login(loginString);
-    DDD::ValueObjects::EncryptedPassword encryptedPassword(encryptedPasswordString);
-    return Entry(entryId, entryName, login, encryptedPassword);
+    ValueObjects::EntryId entryId(id);
+    ValueObjects::EntryName entryName(entryNameString);
+    ValueObjects::Login login(loginString);
+    ValueObjects::EncryptedPassword encryptedPassword(encryptedPasswordString);
+    return Entities::Entry(entryId, entryName, login, encryptedPassword);
 }
 
-Entry EntryFactory::createEntryFromPlaintext(unsigned int id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString)
+Entities::Entry Factories::EntryFactory::createEntryFromPlaintext(unsigned int id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString)
 {
-    DDD::ValueObjects::EntryId entryId(id);
-    DDD::ValueObjects::EntryName entryName(entryNameString);
-    DDD::ValueObjects::Login login(loginString);
-    DDD::ValueObjects::PlaintextPassword plaintextPassword(plaintextPasswordString);
-    DDD::ValueObjects::EncryptedPassword encryptedPassword = InstanceManager::passwordEncryptor->encrypt(plaintextPassword);
-    return Entry(entryId, entryName, login, encryptedPassword);
+    ValueObjects::EntryId entryId(id);
+    ValueObjects::EntryName entryName(entryNameString);
+    ValueObjects::Login login(loginString);
+    ValueObjects::PlaintextPassword plaintextPassword(plaintextPasswordString);
+    ValueObjects::EncryptedPassword encryptedPassword = InstanceManager::passwordEncryptor->encrypt(plaintextPassword);
+    return Entities::Entry(entryId, entryName, login, encryptedPassword);
 }
