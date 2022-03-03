@@ -1,4 +1,4 @@
-#include "adapters/database/DbInterface.h"
+#include "adapters/database/DatabaseInterface.h"
 #include "plugins/database/SQLiteDatabase.h"
 #include "application/Cipher.h"
 #include "plugins/encryption/BLOCK.h"
@@ -9,7 +9,7 @@
 
 int main() {
     const Plugins::Database::SQLiteDatabase database("../passwords.db");
-    const Adapters::Database::DbInterface dbInterface(&database);
+    const Adapters::Database::DatabaseInterface dbInterface(&database);
     const DDD::Repositories::EntryRepository entryRepository(&dbInterface);
 
     const ValueObjects::PlaintextPassword masterPassword("100%safePassword");
