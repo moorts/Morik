@@ -3,19 +3,19 @@
 
 #include <sqlite3.h>
 #include <string>
-#include "../../application/AbstractDatabase.h"
+#include "../../adapters/database/AbstractSqlDatabase.h"
 
 namespace Plugins::Database
 {
-class SQLiteDatabase : public DatabaseInterface::AbstractDatabase
+class SQLiteDatabase : public Adapters::Database::AbstractSqlDatabase
     {
     public:
-        SQLiteDatabase(const char *db_filename);
+        SQLiteDatabase(const char* dbFilename);
         ~SQLiteDatabase();
-        std::pair<std::string, std::string> execute_sql(const std::string &statement) const;
+        std::pair<std::set<DDD::Entities::Entry>, std::string> executeSql(const std::string& statement) const;
     private:
         sqlite3 *db;
     };
-} // Plugins::AbstractDatabase
+} // Plugins::AbstractSqlDatabase
 
 #endif //SRC_SQLITEDATABASE_H
