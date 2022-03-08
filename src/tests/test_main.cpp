@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "./plugins/encryption/crypto_tests.cpp"
+#include "./adapters/database/test_databaseInterface.cpp"
 #include "./application/DDD/encryptor_tests.cpp"
 
 TEST(HelloTest, BasicAssertions) {
