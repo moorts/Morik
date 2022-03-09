@@ -2,3 +2,4 @@
 #include "./adapters/database/databaseInterface_tests.cpp"
 #include "./application/DDD/encryptor_tests.cpp"
 #include "./application/DDD/factory_tests.cpp"
+#include "./application/DDD/repository_tests.cpp"
