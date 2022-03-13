@@ -11,6 +11,10 @@ TEST(AESEncryption, PluginTests) {
     std::string encrypted = c->encrypt(plain, master);
 
     std::string decrypted = c->decrypt(encrypted, master);
+
+    // Check that encryption happened
+    EXPECT_NE(plain, encrypted);
+    // Check that decryption worked
     EXPECT_EQ(plain, decrypted);
 }
 
@@ -22,5 +26,9 @@ TEST(SerpentEncryption, PluginTests) {
     std::string encrypted = c->encrypt(plain, master);
 
     std::string decrypted = c->decrypt(encrypted, master);
+    
+    // Check that encryption happened
+    EXPECT_NE(plain, encrypted);
+    // Check that decryption worked
     EXPECT_EQ(plain, decrypted);
 }

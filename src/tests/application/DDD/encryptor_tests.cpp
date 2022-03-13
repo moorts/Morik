@@ -19,5 +19,8 @@ TEST(PasswordEncryptionService, DDDTests) {
     PasswordDecryptor passwordDecryptor = PasswordDecryptor(cipher, masterPassword);
     const PlaintextPassword decryptedCiphertext = passwordDecryptor.decrypt(ciphertext);
 
+    // Check that encryption happened
+    EXPECT_NE(plaintext.getString(), ciphertext.getString());
+    // Check that decryption worked
     EXPECT_EQ(plaintext.getString(), decryptedCiphertext.getString());
 }
