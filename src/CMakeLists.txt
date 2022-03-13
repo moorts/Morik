@@ -19,7 +19,7 @@ add_executable(src main.cpp ${SOURCE_FILES})
 target_link_libraries(src sqlite3 cryptopp)
 
 add_executable(test_main tests/test_main.cpp ${SOURCE_FILES})
-target_link_libraries(test_main sqlite3 cryptopp gtest_main)
+target_link_libraries(test_main sqlite3 cryptopp gtest_main gmock_main)
 
 include(GoogleTest)
 gtest_discover_tests(test_main)

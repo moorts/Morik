@@ -14,7 +14,7 @@ TEST(PasswordEncryptionService, DDDTests) {
     PasswordEncryptor passwordEncryptor = PasswordEncryptor(cipher, masterPassword);
 
     const PlaintextPassword plaintext = PlaintextPassword("Plaintext");
-    const EncryptedPassword ciphertext = passwordEncryptor.encrypt(plaintext);
+    const ValueObjects::EncryptedPassword ciphertext = passwordEncryptor.encrypt(plaintext);
 
     PasswordDecryptor passwordDecryptor = PasswordDecryptor(cipher, masterPassword);
     const PlaintextPassword decryptedCiphertext = passwordDecryptor.decrypt(ciphertext);
