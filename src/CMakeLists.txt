@@ -13,11 +13,13 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(src main.cpp application/Cipher.h plugins/encryption/KeyDerivation.h plugins/encryption/CBC_Cipher.h plugins/encryption/BLOCK.h adapters/database/DatabaseInterface.cpp adapters/database/DatabaseInterface.h plugins/database/SQLiteDatabase.cpp plugins/database/SQLiteDatabase.h adapters/database/AbstractSqlDatabase.h plugins/encryption/CBC_Cipher.cpp application/DDD/PlaintextPassword.h application/DDD/EncryptedPassword.h application/DDD/EntryName.h application/DDD/Login.h application/DDD/Entry.h application/DDD/EntryRepository.cpp application/DDD/EntryRepository.h application/DDD/EntryId.h application/DDD/EntryFactory.h application/DDD/EntryFactory.cpp application/DatabaseColumn.h application/DDD/PasswordEncryption.h application/InstanceManager.h application/InstanceManager.cpp application/AbstractDatabaseInterface.h)
+set(SOURCE_FILES application/Cipher.h plugins/encryption/KeyDerivation.h plugins/encryption/CBC_Cipher.h plugins/encryption/BLOCK.h adapters/database/DatabaseInterface.cpp adapters/database/DatabaseInterface.h plugins/database/SQLiteDatabase.cpp plugins/database/SQLiteDatabase.h adapters/database/AbstractSqlDatabase.h plugins/encryption/CBC_Cipher.cpp application/DDD/PlaintextPassword.h application/DDD/EncryptedPassword.h application/DDD/EntryName.h application/DDD/Login.h application/DDD/Entry.h application/DDD/EntryRepository.cpp application/DDD/EntryRepository.h application/DDD/EntryId.h application/DDD/EntryFactory.h application/DDD/EntryFactory.cpp application/DatabaseColumn.h application/DDD/PasswordEncryption.h application/InstanceManager.h application/InstanceManager.cpp application/AbstractDatabaseInterface.h)
+
+add_executable(src main.cpp ${SOURCE_FILES})
 target_link_libraries(src sqlite3 cryptopp)
 
-add_executable(test_main tests/test_main.cpp)
-target_link_libraries(test_main sqlite3 cryptopp gtest_main)
+add_executable(test_main tests/test_main.cpp ${SOURCE_FILES})
+target_link_libraries(test_main sqlite3 cryptopp gtest_main gmock_main)
 
 include(GoogleTest)
 gtest_discover_tests(test_main)

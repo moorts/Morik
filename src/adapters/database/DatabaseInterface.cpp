@@ -1,4 +1,5 @@
 #include "DatabaseInterface.h"
+#include <stdexcept>
 
 using namespace Adapters::Database;
 
@@ -6,7 +7,9 @@ DDD::Entities::Entry DatabaseInterface::getEntry(const DDD::ValueObjects::EntryI
 {
     std::string sql = "SELECT * FROM passwords WHERE EntryId = \"" + std::to_string(entryId.getInt()) + "\";";
     auto [entrySet, error] = db->executeSql(sql);
-    return *entrySet.begin();
+    if (!entrySet.empty())
+        return *entrySet.begin();
+    throw std::domain_error("no Entry with provided ID");
 }
 
 std::set<DDD::Entities::Entry> DatabaseInterface::getEntries(const DDD::ValueObjects::EntryName &entryName) const

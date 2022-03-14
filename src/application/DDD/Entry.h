@@ -16,6 +16,7 @@ namespace DDD::Entities {
         ValueObjects::EncryptedPassword encryptedPassword;
         const ValueObjects::EntryId getEntryId() const { return entryId; }
         bool operator==(const Entry &other) const { return other.entryId == entryId; }
+        bool operator!=(const Entry &other) const { return other.entryId != entryId; }
         bool operator<(const Entry &other) const { return other.entryId < entryId; }
     private:
         const ValueObjects::EntryId entryId;
