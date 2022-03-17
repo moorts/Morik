@@ -42,3 +42,17 @@ Dieses Prinzip besagt, dass high-level Komponenten keine Abhängigkeiten auf low
 Morik ist frei von Redundanzen, bei denen tatsächliche Funktionalität mehrmals implementiert wird. Natürlich gibt es einige Methodenhierarchien, die leicht redundant sind (bspw. \textit{PasswordEncryptor::encrypt} -> \textit{Cipher::encrypt} -> \textit{CBC\_Cipher::encrypt}), jedoch sind diese notwendig um den Architektur-Anforderungen zu entsprechen.
 
 Ein Beispiel für die geziehlte Vermeidung von Redundanz ist der Einatz von Templates der \textit{CBC\_Cipher} Klasse, um verschiedene Blockchiffren verwenden zu können, ohne mehrere Klassen von Hand zu implementieren\footnote{siehe \url{https://github.com/moorts/Morik/blob/latex\_principles/src/plugins/encryption/CBC\_Cipher.cpp}}.
+
+\section{GRASP}
+
+Im folgenden wird erläutert, inwiefern Morik die Prinzipien Low Coupling und High Cohesion des GRASP Models' erfüllt.
+
+\subsection{Low Coupling}
+
+Morik verwendet Interfaces und damit polymorphe Methodenaufrufe an vielen Stellen\footnote{bspw. PasswordEncryptor ruft Methoden des Cipher Interface auf, EntryRepository ruft Methoden des DatabaseInterface auf}. Damit sind die einzelnen Komponenten nur schwach an die Implementierungen dieser Interfaces gekoppelt.
+
+Auch gibt es generell kaum statische Methodenaufrufe, wobei zumindest im Verschlüsselungs-Plugin die Schlüsselherleitung als statische Methode realisiert ist\footnote{siehe \url{https://github.com/moorts/Morik/blob/latex_principles/src/plugins/encryption/KeyDerivation.h}}. Dadurch ist \textit{CBC\_Cipher} abhängig von dieser Methode. Dies ist jedoch die einzige Klasse, die an diese statische Methode gekoppelt ist.
+
+\subsection{High Cohesion}
+
+Die Klassen in Morik sind alle sehr übersichtlich. Klassen wie der Domain Service \textit{PasswordEncryptor} machen genau das, was der Name impliziert (in diesem Fall Passwörter verschlüsseln). Wir haben darauf geachtet, dies bei allen Klassen zu erreichen. Das sorgt für hohe Kohäsion, da keine Attribute und Methoden für Dinge notwenig sind, die nicht direkt zur Funktionalität gehören. Manche Klassen, wie das \textit{DatabaseInterface}\footnote{siehe \url{https://github.com/moorts/Morik/blob/latex_principles/src/adapters/database/DatabaseInterface.h}}, haben zwar eine leicht höhere Anzahl Methoden, jedoch sind diese logisch kohärent: Das Einfügen, Entfernen und Bearbeiten von Einträgen sind Konzepte die klar zusammen gehören.
