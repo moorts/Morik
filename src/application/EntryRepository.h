@@ -2,7 +2,7 @@
 #define SRC_ENTRYREPOSITORY_H
 
 #include <set>
-#include "../AbstractDatabaseInterface.h"
+#include "AbstractDatabaseInterface.h"
 #include "Entry.h"
 #include "EntryId.h"
 

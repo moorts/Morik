@@ -2,7 +2,7 @@
 #define SRC_ABSTRACTSQLDATABASE_H
 
 #include <set>
-#include "../../application/DDD/Entry.h"
+#include "../../application/Entry.h"
 
 namespace Adapters::Database
 {

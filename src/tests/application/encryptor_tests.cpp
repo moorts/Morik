@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
-#include "../../../application/DDD/PasswordEncryption.h"
-#include "../../../application/Cipher.h"
-#include "../../../plugins/encryption/CBC_Cipher.h"
-#include "../../../plugins/encryption/BLOCK.h"
+#include "../../cmake-build-debug/_deps/googletest-src/googletest/include/gtest/gtest.h"
+#include "../../application/PasswordEncryption.h"
+#include "../../application/Cipher.h"
+#include "../../plugins/encryption/CBC_Cipher.h"
+#include "../../plugins/encryption/BLOCK.h"
 
 using namespace DDD::Services;
 using namespace DDD::ValueObjects;

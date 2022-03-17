@@ -1,6 +1,6 @@
 #include "SQLiteDatabase.h"
 #include <iostream>
-#include "../../application/DDD/EntryFactory.h"
+#include "../../application/EntryFactory.h"
 
 using namespace Plugins::Database;
 using namespace DDD::Entities;

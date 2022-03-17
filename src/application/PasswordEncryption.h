@@ -1,7 +1,7 @@
 #ifndef SRC_PASSWORDENCRYPTION_H
 #define SRC_PASSWORDENCRYPTION_H
 
-#include "../Cipher.h"
+#include "Cipher.h"
 #include "EncryptedPassword.h"
 #include "PlaintextPassword.h"
 
