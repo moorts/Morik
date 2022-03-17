@@ -36,3 +36,9 @@ Problematische Verwendungen können natürlich zu Problemen führen, beispielswe
 \subsection{Dependency-Inversion-Prinzip}
 
 Dieses Prinzip besagt, dass high-level Komponenten keine Abhängigkeiten auf lower-level Komponenten haben sollen. Ein klassisches Beispiel, ist die Abhängigkeit von Plugins. Die Klasse in der Applikationsschicht, die die Funktionalität, die das Plugin bereitstellt verwendet, soll nicht von der Plugin-spezifischen Implementierung abhängig sein. Eine solche Abhängigkeit würde die Funktionalität der Applikation abhängig von der Funktionalität des Plugins machen. Durch Definition eines Interfaces in der Applikationsschicht, das in der Pluginschicht implementiert werden muss, kann dies verhindert werden. Die tatsächlichen Instanzen der Plugin-Klassen werden durch Dependency Injection übergeben. In unserem Fall gibt es beispielsweise die Schnittstelle zur Datenbank, in der Dependency Inversion demonstiert wird. Die abstrakte Klasse \textit{AbstractSqlDatabase} in der Adapterschicht, wird von der konkreten Implementierung einer SQL-Datenbank (der Klasse \textit{SQLiteDatabase}) implementiert.
+
+\section{DRY}
+
+Morik ist frei von Redundanzen, bei denen tatsächliche Funktionalität mehrmals implementiert wird. Natürlich gibt es einige Methodenhierarchien, die leicht redundant sind (bspw. \textit{PasswordEncryptor::encrypt} -> \textit{Cipher::encrypt} -> \textit{CBC\_Cipher::encrypt}), jedoch sind diese notwendig um den Architektur-Anforderungen zu entsprechen.
+
+Ein Beispiel für die geziehlte Vermeidung von Redundanz ist der Einatz von Templates der \textit{CBC\_Cipher} Klasse, um verschiedene Blockchiffren verwenden zu können, ohne mehrere Klassen von Hand zu implementieren\footnote{siehe \url{https://github.com/moorts/Morik/blob/latex\_principles/src/plugins/encryption/CBC\_Cipher.cpp}}.
