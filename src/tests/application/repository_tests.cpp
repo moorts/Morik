@@ -1,4 +1,4 @@
-#include "../../cmake-build-debug/_deps/googletest-src/googletest/include/gtest/gtest.h"
+#include <gtest/gtest.h>
 #include "AbstractDatabaseInterfaceMock.h"
 #include "../../application/EntryRepository.h"
 

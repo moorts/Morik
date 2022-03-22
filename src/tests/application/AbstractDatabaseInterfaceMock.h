@@ -2,7 +2,7 @@
 #define SRC_ABSTRACTDATABASEINTERFACEMOCK_H
 
 #include "../../application/AbstractDatabaseInterface.h"
-#include "../../cmake-build-debug/_deps/googletest-src/googlemock/include/gmock/gmock.h"
+#include <gmock/gmock.h>
 
 class AbstractDatabaseInterfaceMock : public AbstractDatabaseInterface {
 public:

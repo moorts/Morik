@@ -1,4 +1,4 @@
-#include "../../cmake-build-debug/_deps/googletest-src/googletest/include/gtest/gtest.h"
+#include <gtest/gtest.h>
 #include "../../application/PasswordEncryption.h"
 #include "../../application/Cipher.h"
 #include "../../plugins/encryption/CBC_Cipher.h"
