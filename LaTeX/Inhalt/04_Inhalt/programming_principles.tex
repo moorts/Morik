@@ -7,11 +7,12 @@ In diesem Kapitel wird unser Projekt im Bezug auf die SOLID, DRY und GRASP Prinz
 \subsection{Single-Responsibility-Prinzip}
 
 Das Single-Responsibility-Prinzip besagt, dass Klassen und Funktionen stets nur einen Grund zur Änderung haben sollen. Bei Morik gilt dies für alle Klassen. Ein einfaches Beipiel ist die \textit{EntryFactory}, welche Entries erstellt und nur verändert werden müsste, um dies anders zu erreichen. Das Prinzip ist ebenfalls erfüllt vom \textit{Cipher} Interface, welches sowohl ver- als auch entschlüsseln kann. Dies sind zwar unterschiedliche Operationen, jedoch ergibt es keinen Sinn die eine zu ändern, ohne die andere gleichermaßen anzupassen. Der einzige Grund die Klasse zu verändern, ist um die Verschlüsselung zu ändern.
+Ein Beispiel des Single-Responsibility-Prinzips bei Methoden sind die des \textit{Cipher} Interface. Ver- und Entschlüsselung sind hier in Methoden getrennt, statt über eine Flag, o.ä., zu differenzieren.
 
 \subsection{Open-Closed-Prinzip}
 
-Das Open-Closed-Prinzip besagt, dass Klassen, die bereits korrekt funktionieren, erweitert werden können (durch Einführung neuer abgeleiteter Klassen). 
-Die Interfaces in Morik (\textit{Cipher}, \textit{DatabaseInterface}, etc.) setzen die Einführung von Implementierungen voraus um verwendet zu werden und können folglich einfach um weitere Subklassen erweitert werden. Auch der Großteil der anderen Klassen könnte prinzipiell durch Verwerbung erweitert werden, auch wenn es dazu oft keinen Grund gibt. Bei Klassen, für die wir explizit vermeiden wollen, dass von ihnen geerbt wird gibt es das \textbf{final} Schlüsselwort in C++. Dies verwenden wir \zB für das ValueObject \textit{EntryID}. Dadurch wird aktiv vermieden, dass Funktionalität hinzugefügt wird, da ValueObjects keine Funktionalität haben sollen. Streng genommen, verletzt dies das Open-Closed Prinzip.
+Das Open-Closed-Prinzip besagt, dass Klassen, die bereits korrekt funktionieren, erweitert werden können (bspw. durch Einführung neuer abgeleiteter Klassen). 
+Die Interfaces in Morik (\textit{Cipher}, \textit{DatabaseInterface}, etc.) setzen die Einführung von Implementierungen voraus um verwendet zu werden und können folglich einfach um weitere Subklassen erweitert werden. Auch der Großteil der anderen Klassen könnte prinzipiell durch Vererbung erweitert werden, auch wenn es dazu oft keinen Grund gibt. Bei Klassen, für die wir explizit vermeiden wollen, dass von ihnen geerbt wird gibt es das \textbf{final} Schlüsselwort in C++. Dies verwenden wir \zB für das ValueObject \textit{EntryID}. Dadurch wird aktiv vermieden, dass Funktionalität hinzugefügt wird, da ValueObjects keine Funktionalität haben sollen. Streng genommen, verletzt dies das Open-Closed Prinzip.
 
 Trotzdem gilt das Prinzip für den Großteil der Code-Basis.
 
@@ -30,14 +31,18 @@ public:
 };
 \end{lstlisting}
 
-Die Domain Services, die dieses Interface verwenden um Verschlüsselung durchzuführen akzeptieren einen Pointer auf ein \textit{Cipher} Objekt als Konstruktur Argument. Es hat keinen Einfluss auf deren Funktionalität ob das übergebene Objekt vom Typ \textit{CBC\_Cipher<AES>}, \textit{CBC\_Cipher<Serpent>} oder eine beliebige andere Implementierung des Interfaces ist.
+Die Domain Services, die dieses Interface verwenden um Verschlüsselung durchzuführen akzeptieren einen Pointer auf ein \textit{Cipher} Objekt als Konstruktor Argument. Es hat keinen Einfluss auf deren Funktionalität ob das übergebene Objekt vom Typ \textit{CBC\_Cipher<AES>}, \textit{CBC\_Cipher<Serpent>} oder eine beliebige andere Implementierung des Interfaces ist.
 
-Es ist zwar wichtig, dass zur Verschlüsselung der gleiche Algorithmus verwendet wird, wie zur Entschlüsselung. Dies ist jedoch irrelevant im Bezug auf dieses Prinzip, denn egal mit welchem Subtype man \textit{Cipher} ersetzt, die Funktionalität ist unverändert: Ein String kann unter Angabe eines Schlüssels verschlüsselt oder entschlüsselt werden. Solange der Subtyp das Interface korrekt implementiert, sind Substitutionen möglich.
+Es ist zwar wichtig, dass zur Verschlüsselung der gleiche Algorithmus verwendet wird, wie zur Entschlüsselung. Dies ist jedoch irrelevant im Bezug auf dieses Prinzip, denn egal mit welchem Subtyp man \textit{Cipher} ersetzt, die Funktionalität ist unverändert: Ein String kann unter Angabe eines Schlüssels verschlüsselt oder entschlüsselt werden. Solange der Subtyp das Interface korrekt implementiert, sind Substitutionen möglich.
 Problematische Verwendungen können natürlich zu Problemen führen, beispielsweise die Verwendung verschiedener \textit{Cipher} Instanzen für Ver- und Entschlüsselung würde bedeuten, dass die Instanzen nur paarweise ersetzt werden dürfen, da sonst falsche Ergebnisse entstehen würden.
+
+\subsection{Interface-Segregation-Prinzip}
+
+Interfaces sollen nur Methoden haben, die eng an ihren Zweck gebunden sind. Morik hält sich an dieses Prinzip, es existieren keine unnötigen Methoden in den Interfaces. Bspw. um ein neues \textit{Cipher} zu implementieren, muss nur Ver- und Entschlüsselung implementiert werden, sonst nichts.
 
 \subsection{Dependency-Inversion-Prinzip}
 
-Dieses Prinzip besagt, dass high-level Komponenten keine Abhängigkeiten auf lower-level Komponenten haben sollen. Ein klassisches Beispiel, ist die Abhängigkeit von Plugins. Die Klasse in der Applikationsschicht, die die Funktionalität, die das Plugin bereitstellt verwendet, soll nicht von der Plugin-spezifischen Implementierung abhängig sein. Eine solche Abhängigkeit würde die Funktionalität der Applikation abhängig von der Funktionalität des Plugins machen. Durch Definition eines Interfaces in der Applikationsschicht, das in der Pluginschicht implementiert werden muss, kann dies verhindert werden. Die tatsächlichen Instanzen der Plugin-Klassen werden durch Dependency Injection übergeben. In unserem Fall gibt es beispielsweise die Schnittstelle zur Datenbank, in der Dependency Inversion demonstiert wird. Die abstrakte Klasse \textit{AbstractSqlDatabase} in der Adapterschicht, wird von der konkreten Implementierung einer SQL-Datenbank (der Klasse \textit{SQLiteDatabase}) implementiert.
+Dieses Prinzip besagt, dass high-level Komponenten keine Abhängigkeiten auf lower-level Komponenten haben sollen. Ein klassisches Beispiel, ist die Abhängigkeit von Plugins. Die Klasse in der Applikationsschicht, die die vom Plugin bereitgestellte Funktionalität verwendet, soll nicht von der Plugin-spezifischen Implementierung abhängig sein. Eine solche Abhängigkeit würde die Funktionalität der Applikation abhängig von der Funktionalität des Plugins machen. Durch Definition eines Interfaces in der Applikationsschicht, das in der Pluginschicht implementiert werden muss, kann dies verhindert werden. Die tatsächlichen Instanzen der Plugin-Klassen werden durch Dependency Injection übergeben. In unserem Fall gibt es beispielsweise die Schnittstelle zur Datenbank, in der Dependency Inversion demonstiert wird. Die abstrakte Klasse \textit{AbstractSqlDatabase} in der Adapterschicht, wird von der konkreten Implementierung einer SQL-Datenbank (der Klasse \textit{SQLiteDatabase}) implementiert.
 
 \section{DRY}
 
@@ -47,13 +52,15 @@ Ein Beispiel für die geziehlte Vermeidung von Redundanz ist der Einatz von Temp
 
 \section{GRASP}
 
-Im folgenden wird erläutert, inwiefern Morik die Prinzipien Low Coupling und High Cohesion des GRASP Models' erfüllt.
+Im folgenden wird erläutert, inwiefern Morik die Prinzipien Low Coupling und High Cohesion der GRASP Prinzipien erfüllt.
 
 \subsection{Low Coupling}
 
 Morik verwendet Interfaces und damit polymorphe Methodenaufrufe an vielen Stellen\footnote{bspw. PasswordEncryptor ruft Methoden des Cipher Interface auf, EntryRepository ruft Methoden des DatabaseInterface auf}. Damit sind die einzelnen Komponenten nur schwach an die Implementierungen dieser Interfaces gekoppelt.
 
 Auch gibt es generell kaum statische Methodenaufrufe, wobei zumindest im Verschlüsselungs-Plugin die Schlüsselherleitung als statische Methode realisiert ist\footnote{siehe \url{https://github.com/moorts/Morik/blob/latex_principles/src/plugins/encryption/KeyDerivation.h}}. Dadurch ist \textit{CBC\_Cipher} abhängig von dieser Methode. Dies ist jedoch die einzige Klasse, die an diese statische Methode gekoppelt ist.
+
+Ein weiterer Fall von Coupling, ist der \textit{InstanceManager}\footnote{siehe \url{https://github.com/moorts/Morik/blob/main/src/application/InstanceManager.h}}. Dieser stellt einige global Verfügbare Instanzen zur Verfügung. Klassen wie bspw. die \textit{EntityFactory} sind davon abhängig, dass diese Instanzen gesetzt/valide sind. Dies wird in Kauf genommen, da garantiert werden soll, dass diese Instanzen überall verwendet werden, wo die entsprechenden Klassen gebraucht werden.
 
 \subsection{High Cohesion}
 
