@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "AbstractDatabaseInterfaceMock.h"
-#include "../../../application/DDD/EntryRepository.h"
+#include "../../application/EntryRepository.h"
 
 TEST(GetEntry, DDDTests) {
     AbstractDatabaseInterfaceMock mock;

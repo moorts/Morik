@@ -1,6 +1,6 @@
 #include "EntryFactory.h"
 #include "PlaintextPassword.h"
-#include "../InstanceManager.h"
+#include "InstanceManager.h"
 
 using namespace DDD;
 

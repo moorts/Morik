@@ -3,8 +3,8 @@
 #include "application/Cipher.h"
 #include "plugins/encryption/BLOCK.h"
 #include "plugins/encryption/CBC_Cipher.h"
-#include "application/DDD/EntryRepository.h"
-#include "application/DDD/PasswordEncryption.h"
+#include "application/EntryRepository.h"
+#include "application/PasswordEncryption.h"
 #include "application/InstanceManager.h"
 
 int main() {

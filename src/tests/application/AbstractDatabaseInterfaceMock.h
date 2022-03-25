@@ -1,7 +1,7 @@
 #ifndef SRC_ABSTRACTDATABASEINTERFACEMOCK_H
 #define SRC_ABSTRACTDATABASEINTERFACEMOCK_H
 
-#include "../../../application/AbstractDatabaseInterface.h"
+#include "../../application/AbstractDatabaseInterface.h"
 #include <gmock/gmock.h>
 
 class AbstractDatabaseInterfaceMock : public AbstractDatabaseInterface {
