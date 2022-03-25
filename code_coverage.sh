@@ -7,4 +7,4 @@ fi
 cd src/build
 cmake ..
 make
-ctest
+ctest -D ExperimentalCoverage
