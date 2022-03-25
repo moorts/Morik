@@ -11,6 +11,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
+include(CTest)
 enable_testing()
 
 set(SOURCE_FILES application/Cipher.h plugins/encryption/KeyDerivation.h plugins/encryption/CBC_Cipher.h plugins/encryption/BLOCK.h adapters/database/DatabaseInterface.cpp adapters/database/DatabaseInterface.h plugins/database/SQLiteDatabase.cpp plugins/database/SQLiteDatabase.h adapters/database/AbstractSqlDatabase.h plugins/encryption/CBC_Cipher.cpp application/PlaintextPassword.h application/EncryptedPassword.h application/EntryName.h application/Login.h application/Entry.h application/EntryRepository.cpp application/EntryRepository.h application/EntryId.h application/EntryFactory.h application/EntryFactory.cpp application/DatabaseColumn.h application/PasswordEncryption.h application/InstanceManager.h application/InstanceManager.cpp application/AbstractDatabaseInterface.h)
