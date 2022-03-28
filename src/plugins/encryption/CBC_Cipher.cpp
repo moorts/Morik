@@ -3,10 +3,10 @@
 //
 
 #include "CBC_Cipher.h"
-#include "KeyDerivation.h"
+#include "DefaultHash.h"
 
 std::string CBC_Cipher::encrypt(std::string plain, std::string master) const {
-    SecByteBlock key = KeyDerivation::derive(master);
+    SecByteBlock key = Sha256::calculate(master);
     AutoSeededRandomPool prng;
     HexEncoder encoder(nullptr);
 
@@ -58,7 +58,7 @@ std::string CBC_Cipher::encrypt(std::string plain, std::string master) const {
 }
 
 std::string CBC_Cipher::decrypt(std::string cipher, std::string master) const {
-    SecByteBlock key = KeyDerivation::derive(master);
+    SecByteBlock key = Sha256::calculate(master);
     HexDecoder decoder;
 
     std::string c;
