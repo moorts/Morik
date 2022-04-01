@@ -13,6 +13,11 @@ std::set<Entities::Entry> EntryRepository::find(ValueObjects::EntryName entryNam
     return dbInterface->getEntries(entryName);
 }
 
+std::set<Entities::Entry> EntryRepository::getAllEntries() const
+{
+    return dbInterface->getAllEntries();
+}
+
 void EntryRepository::store(const Entities::Entry &entry) const
 {
     dbInterface->insertEntry(entry);

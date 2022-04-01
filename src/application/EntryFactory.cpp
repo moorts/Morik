@@ -13,9 +13,8 @@ Entities::Entry Factories::EntryFactory::createEntry(unsigned int id, std::strin
     return Entities::Entry(entryId, entryName, login, encryptedPassword);
 }
 
-Entities::Entry Factories::EntryFactory::createEntryFromPlaintext(unsigned int id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString)
+Entities::Entry Factories::EntryFactory::createEntryFromPlaintext(ValueObjects::EntryId entryId, std::string entryNameString, std::string loginString, std::string plaintextPasswordString)
 {
-    ValueObjects::EntryId entryId(id);
     ValueObjects::EntryName entryName(entryNameString);
     ValueObjects::Login login(loginString);
     ValueObjects::PlaintextPassword plaintextPassword(plaintextPasswordString);
