@@ -10,7 +10,7 @@ namespace DDD::Factories
     {
     public:
         static Entities::Entry createEntry(unsigned int id, std::string entryNameString, std::string loginString, std::string encryptedPasswordString);
-        static Entities::Entry createEntryFromPlaintext(unsigned int id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString);
+        static Entities::Entry createEntryFromPlaintext(ValueObjects::EntryId id, std::string entryNameString, std::string loginString, std::string plaintextPasswordString);
     private:
     };
 } // DDD::Factories
