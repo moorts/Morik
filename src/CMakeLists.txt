@@ -15,7 +15,7 @@ enable_testing()
 
 set(SOURCE_FILES application/Cipher.h plugins/encryption/DefaultHash.h plugins/encryption/CBC_Cipher.h plugins/encryption/BLOCK.h adapters/database/DatabaseInterface.cpp adapters/database/DatabaseInterface.h plugins/database/SQLiteDatabase.cpp plugins/database/SQLiteDatabase.h adapters/database/AbstractSqlDatabase.h plugins/encryption/CBC_Cipher.cpp application/PlaintextPassword.h application/EncryptedPassword.h application/EntryName.h application/Login.h application/Entry.h application/EntryRepository.cpp application/EntryRepository.h application/EntryId.h application/EntryFactory.h application/EntryFactory.cpp application/Hash.h application/DatabaseColumn.h application/PasswordEncryption.h application/PasswordVerifier.h application/InstanceManager.h application/InstanceManager.cpp application/AbstractDatabaseInterface.h adapters/ui/UiDataHelper.cpp adapters/ui/UiDataHelper.h)
 
-add_executable(src main.cpp ${SOURCE_FILES})
+add_executable(src main.cpp ${SOURCE_FILES} plugins/ui/CommandLineInterface.cpp plugins/ui/CommandLineInterface.h)
 target_link_libraries(src sqlite3 cryptopp)
 
 add_executable(test_main tests/test_main.cpp ${SOURCE_FILES})
