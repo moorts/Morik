@@ -4,11 +4,9 @@
 using namespace Plugins::UI;
 using namespace DDD;
 
-int CommandLineInterface::mainloop() const
+void CommandLineInterface::mainloop() const
 {
-    bool exit = false;
-    while (!exit) { exit = true; }
-    return 0;
+    while (true) { return; }
 }
 
 ValueObjects::PlaintextPassword CommandLineInterface::requestMasterPassword() const
