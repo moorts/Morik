@@ -13,29 +13,26 @@ ACTION(ThrowDomainError) {
     throw std::domain_error("");
 }
 
-TEST(SetMasterPassword, DDDTests) {
+TEST(VerifyMasterPassword, DDDTests) {
     AbstractDatabaseInterfaceMock mock;
 
-    Hash* hash = new DefaultHash();
-
     std::string masterPassword("masterPassword");
-    ValueObjects::PlaintextPassword plainMasterPassword(masterPassword);
 
+    Hash* hash = new DefaultHash();
+    Services::MasterPasswordVerifier verifier(hash);
     ValueObjects::EncryptedPassword hashedPassword(hash->compute(hash->compute(masterPassword)));
 
-    Services::MasterPasswordVerifier verifier(hash);
-
-    const DatabaseColumn c = DatabaseColumn::EncryptedPassword;
-
     ValueObjects::EntryId id(0);
-
     Entities::Entry e(id, ValueObjects::EntryName("masterPasswordHash"), ValueObjects::Login("master"), hashedPassword);
+
+    EXPECT_CALL(mock, getEntry(id)).Times(2).WillOnce(testing::Throw(std::domain_error(""))).WillOnce(Return(e));
+    EXPECT_CALL(mock, insertEntry(e)).Times(1);
+
 
     Repositories::EntryRepository* repo = new Repositories::EntryRepository(&mock);
     InstanceManager::addPointers(repo, nullptr, nullptr);
 
-    EXPECT_CALL(mock, getEntry(id)).Times(2).WillOnce(testing::Throw(std::domain_error(""))).WillOnce(Return(e));
-    EXPECT_CALL(mock, insertEntry(e)).Times(1);
+    ValueObjects::PlaintextPassword plainMasterPassword(masterPassword);
     verifier.setMasterPassword(plainMasterPassword);
 
     EXPECT_TRUE(verifier.verifyMasterPassword(plainMasterPassword));

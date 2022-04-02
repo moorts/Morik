@@ -1,6 +1,7 @@
 #ifndef SRC_PASSWORTVERIFIER_H
 #define SRC_PASSWORDVERIFIER_H
 
+#include "EntryFactory.h"
 #include "InstanceManager.h"
 #include "DatabaseColumn.h"
 #include "Hash.h"
@@ -20,13 +21,15 @@ namespace DDD::Services {
         }
 
         void setMasterPassword(ValueObjects::PlaintextPassword masterPassword) const {
-            const ValueObjects::EncryptedPassword newHash(this->hash->compute(this->hash->compute(masterPassword.getString())));
+            const std::string rawHash = this->hash->compute(this->hash->compute(masterPassword.getString()));
+            const ValueObjects::EncryptedPassword verificationHash(rawHash);
 
             try {
                 Entities::Entry entry = InstanceManager::entryRepository->getEntry(ValueObjects::EntryId(0));
-                InstanceManager::entryRepository->modifyEntry(entry, newHash);
+                InstanceManager::entryRepository->modifyEntry(entry, verificationHash);
             } catch (...) {
-                Entities::Entry newMasterPasswordHash(ValueObjects::EntryId(0), ValueObjects::EntryName("masterPasswordHash"), ValueObjects::Login("master"), newHash);
+                Factories::EntryFactory factory;
+                Entities::Entry newMasterPasswordHash = factory.createEntry(0, "masterPasswordHash", "master", rawHash);
                 InstanceManager::entryRepository->store(newMasterPasswordHash);
             }
         }
