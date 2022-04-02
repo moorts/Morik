@@ -3,9 +3,14 @@
 #include "application/Cipher.h"
 #include "plugins/encryption/BLOCK.h"
 #include "plugins/encryption/CBC_Cipher.h"
+#include "plugins/encryption/DefaultHash.h"
 #include "application/EntryRepository.h"
 #include "application/PasswordEncryption.h"
+#include "application/PasswordVerifier.h"
 #include "application/InstanceManager.h"
+#include "application/Hash.h"
+
+#include <cassert>
 
 int main() {
     const Plugins::Database::SQLiteDatabase database("../passwords.db");
@@ -19,6 +24,10 @@ int main() {
     const DDD::Services::PasswordDecryptor passwordDecryptor(c, masterPassword);
 
     InstanceManager::addPointers(&entryRepository, &passwordEncryptor, &passwordDecryptor);
+
+    const Hash* hash = new DefaultHash();
+    const DDD::Services::MasterPasswordVerifier verifier(hash);
+    verifier.setMasterPassword(masterPassword);
 
     return 0;
 }
