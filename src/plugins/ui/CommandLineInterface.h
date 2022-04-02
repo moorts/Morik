@@ -8,7 +8,7 @@ namespace Plugins::UI {
     class CommandLineInterface {
     public:
         CommandLineInterface(Adapters::UI::UiDataHelper uiDataHelper): uiDataHelper(uiDataHelper) {}
-        int mainloop() const;
+        void mainloop() const;
         DDD::ValueObjects::PlaintextPassword requestMasterPassword() const;
     private:
         Adapters::UI::UiDataHelper uiDataHelper;
