@@ -13,7 +13,6 @@ namespace Plugins::UI {
     private:
         Adapters::UI::UiDataHelper uiDataHelper;
     };
-
+} // Plugins::UI
 
 #endif //SRC_COMMANDLINEINTERFACE_H
-} // Plugins::UI
