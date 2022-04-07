@@ -28,8 +28,7 @@ namespace DDD::Services {
                 Entities::Entry entry = InstanceManager::entryRepository->getEntry(ValueObjects::EntryId(0));
                 InstanceManager::entryRepository->modifyEntry(entry, verificationHash);
             } catch (...) {
-                Factories::EntryFactory factory;
-                Entities::Entry newMasterPasswordHash = factory.createEntry(0, "masterPasswordHash", "master", rawHash);
+                Entities::Entry newMasterPasswordHash = Factories::EntryFactory::createEntry(0, "masterPasswordHash", "master", rawHash);
                 InstanceManager::entryRepository->store(newMasterPasswordHash);
             }
         }

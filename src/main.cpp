@@ -8,9 +8,6 @@
 #include "application/PasswordEncryption.h"
 #include "application/PasswordVerifier.h"
 #include "application/InstanceManager.h"
-#include "application/Hash.h"
-
-#include <cassert>
 
 int main() {
     const Plugins::Database::SQLiteDatabase database("../passwords.db");
