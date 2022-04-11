@@ -5,6 +5,8 @@
 #include "../../application/InstanceManager.h"
 #include "../../plugins/encryption/DefaultHash.h"
 #include "../../application/Hash.h"
+#include "../../adapters/ui/UiDataHelper.h"
+#include "../../plugins/ui/CommandLineInterface.h"
 #include <stdexcept>
 
 using namespace DDD;
@@ -18,8 +20,10 @@ TEST(VerifyMasterPassword, DDDTests) {
 
     std::string masterPassword("masterPassword");
 
+    Adapters::UI::UiDataHelper uiDataHelper;
+    Plugins::UI::CommandLineInterface cli(uiDataHelper);
     Hash* hash = new DefaultHash();
-    Services::MasterPasswordVerifier verifier(hash);
+    Services::MasterPasswordVerifier verifier(hash, &cli);
     ValueObjects::EncryptedPassword hashedPassword(hash->compute(hash->compute(masterPassword)));
 
     ValueObjects::EntryId id(0);

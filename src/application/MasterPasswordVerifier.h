@@ -5,13 +5,15 @@
 #include "InstanceManager.h"
 #include "DatabaseColumn.h"
 #include "Hash.h"
+#include "AbstractUserInterface.h"
+#include <stdexcept>
 
 using namespace DDD;
 
 namespace DDD::Services {
     class MasterPasswordVerifier {
     public:
-        MasterPasswordVerifier(const Hash* hash) : hash(hash) {}
+        MasterPasswordVerifier(const Hash* hash, const AbstractUserInterface* ui) : hash(hash), ui(ui) {}
         bool verifyMasterPassword(ValueObjects::PlaintextPassword masterPassword) const {
             ValueObjects::EncryptedPassword storedMasterPasswordHash = InstanceManager::entryRepository->getEntry(ValueObjects::EntryId(0)).encryptedPassword;
 
@@ -42,8 +44,24 @@ namespace DDD::Services {
             }
         }
 
+        ValueObjects::PlaintextPassword getVerifiedMasterPassword() const {
+            std::string masterPasswordString;
+            if (!isMasterPasswordSet()) {
+                masterPasswordString = ui->setNewMasterPassword().getString();
+                setMasterPassword(masterPasswordString);
+            } else {
+                masterPasswordString = ui->requestMasterPassword().getString();
+                if (!verifyMasterPassword(masterPasswordString)) {
+                    ui->wrongMasterPassword();
+                    throw std::domain_error("wrong master password");
+                }
+            }
+            return ValueObjects::PlaintextPassword(masterPasswordString);
+        }
+
     private:
         const Hash* hash;
+        const AbstractUserInterface* ui;
     };
 }
 

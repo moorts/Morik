@@ -17,22 +17,17 @@ int main() {
     const DDD::Repositories::EntryRepository entryRepository(&dbInterface);
     InstanceManager::addEntryRepositoryPointer(&entryRepository);
 
-    const Hash* hash = new DefaultHash();
-    const DDD::Services::MasterPasswordVerifier masterPasswordVerifier(hash);
-
     Adapters::UI::UiDataHelper uiDataHelper;
     Plugins::UI::CommandLineInterface cli(uiDataHelper);
 
+    const Hash* hash = new DefaultHash();
+    const DDD::Services::MasterPasswordVerifier masterPasswordVerifier(hash, &cli);
+
     std::string masterPasswordString;
-    if (!masterPasswordVerifier.isMasterPasswordSet()) {
-        masterPasswordString = cli.setNewMasterPassword().getString();
-        masterPasswordVerifier.setMasterPassword(masterPasswordString);
-    } else {
-        masterPasswordString = cli.requestMasterPassword().getString();
-        if (!masterPasswordVerifier.verifyMasterPassword(masterPasswordString)) {
-            cli.wrongMasterPassword();
-            exit(1);
-        }
+    try {
+        masterPasswordString = masterPasswordVerifier.getVerifiedMasterPassword().getString();
+    } catch (const std::domain_error& exception) {
+        exit(1);
     }
     const ValueObjects::PlaintextPassword masterPassword(masterPasswordString);
 
