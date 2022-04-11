@@ -173,3 +173,8 @@ ValueObjects::PlaintextPassword CommandLineInterface::setNewMasterPassword() con
     std::cin >> masterPasswordString;
     return ValueObjects::PlaintextPassword(masterPasswordString);
 }
+
+void CommandLineInterface::wrongMasterPassword() const
+{
+    std::cout << "Wrong master password has been entered" << std::endl;
+}

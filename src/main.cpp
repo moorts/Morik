@@ -30,7 +30,7 @@ int main() {
     } else {
         masterPasswordString = cli.requestMasterPassword().getString();
         if (!masterPasswordVerifier.verifyMasterPassword(masterPasswordString)) {
-            std::cout << "Wrong masterpassword" << std::endl;
+            cli.wrongMasterPassword();
             exit(1);
         }
     }

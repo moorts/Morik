@@ -11,6 +11,7 @@ namespace Plugins::UI {
         void mainloop() const;
         DDD::ValueObjects::PlaintextPassword requestMasterPassword() const;
         DDD::ValueObjects::PlaintextPassword setNewMasterPassword() const;
+        void wrongMasterPassword() const;
     private:
         Adapters::UI::UiDataHelper uiDataHelper;
     };
