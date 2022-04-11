@@ -33,6 +33,15 @@ namespace DDD::Services {
             }
         }
 
+        bool isMasterPasswordSet() const {
+            try {
+                InstanceManager::entryRepository->getEntry(ValueObjects::EntryId(0));
+                return true;
+            } catch (...) {
+                return false;
+            }
+        }
+
     private:
         const Hash* hash;
     };

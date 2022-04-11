@@ -165,3 +165,11 @@ ValueObjects::PlaintextPassword CommandLineInterface::requestMasterPassword() co
     std::cin >> masterPasswordString;
     return ValueObjects::PlaintextPassword(masterPasswordString);
 }
+
+ValueObjects::PlaintextPassword CommandLineInterface::setNewMasterPassword() const
+{
+    std::cout << "Enter new master password: ";
+    std::string masterPasswordString;
+    std::cin >> masterPasswordString;
+    return ValueObjects::PlaintextPassword(masterPasswordString);
+}

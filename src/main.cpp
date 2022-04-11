@@ -17,11 +17,24 @@ int main() {
     const DDD::Repositories::EntryRepository entryRepository(&dbInterface);
     InstanceManager::addEntryRepositoryPointer(&entryRepository);
 
+    const Hash* hash = new DefaultHash();
+    const DDD::Services::MasterPasswordVerifier masterPasswordVerifier(hash);
+
     Adapters::UI::UiDataHelper uiDataHelper;
     Plugins::UI::CommandLineInterface cli(uiDataHelper);
 
-    const ValueObjects::PlaintextPassword masterPassword = cli.requestMasterPassword();
-//    if (!masterPasswordVerifier.verifyMasterPassword(masterPassword)) {}
+    std::string masterPasswordString;
+    if (!masterPasswordVerifier.isMasterPasswordSet()) {
+        masterPasswordString = cli.setNewMasterPassword().getString();
+        masterPasswordVerifier.setMasterPassword(masterPasswordString);
+    } else {
+        masterPasswordString = cli.requestMasterPassword().getString();
+        if (!masterPasswordVerifier.verifyMasterPassword(masterPasswordString)) {
+            std::cout << "Wrong masterpassword" << std::endl;
+            exit(1);
+        }
+    }
+    const ValueObjects::PlaintextPassword masterPassword(masterPasswordString);
 
     const Cipher* c = new CBC_Cipher(BLOCK::Serpent);
     const DDD::Services::PasswordEncryptor passwordEncryptor(c, masterPassword);
@@ -29,10 +42,6 @@ int main() {
     InstanceManager::addEncryptionPointers(&passwordEncryptor, &passwordDecryptor);
 
     cli.mainloop();
-
-    const Hash* hash = new DefaultHash();
-    const DDD::Services::MasterPasswordVerifier verifier(hash);
-    verifier.setMasterPassword(masterPassword);
 
     return 0;
 }

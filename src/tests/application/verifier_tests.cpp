@@ -30,7 +30,7 @@ TEST(VerifyMasterPassword, DDDTests) {
 
 
     Repositories::EntryRepository* repo = new Repositories::EntryRepository(&mock);
-    InstanceManager::addPointers(repo, nullptr, nullptr);
+    InstanceManager::addEntryRepositoryPointer(repo);
 
     ValueObjects::PlaintextPassword plainMasterPassword(masterPassword);
     verifier.setMasterPassword(plainMasterPassword);

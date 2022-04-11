@@ -10,6 +10,7 @@ namespace Plugins::UI {
         CommandLineInterface(Adapters::UI::UiDataHelper uiDataHelper): uiDataHelper(uiDataHelper) {}
         void mainloop() const;
         DDD::ValueObjects::PlaintextPassword requestMasterPassword() const;
+        DDD::ValueObjects::PlaintextPassword setNewMasterPassword() const;
     private:
         Adapters::UI::UiDataHelper uiDataHelper;
     };
