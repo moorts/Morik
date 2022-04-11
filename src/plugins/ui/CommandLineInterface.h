@@ -2,10 +2,10 @@
 #define SRC_COMMANDLINEINTERFACE_H
 
 #include "../../adapters/ui/UiDataHelper.h"
-#include "../../application/PlaintextPassword.h"
+#include "../../application/AbstractUserInterface.h"
 
 namespace Plugins::UI {
-    class CommandLineInterface {
+    class CommandLineInterface : public AbstractUserInterface {
     public:
         CommandLineInterface(Adapters::UI::UiDataHelper uiDataHelper): uiDataHelper(uiDataHelper) {}
         void mainloop() const;
