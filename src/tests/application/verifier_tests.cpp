@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "AbstractDatabaseInterfaceMock.h"
 #include "../../application/EntryRepository.h"
-#include "../../application/PasswordVerifier.h"
+#include "../../application/MasterPasswordVerifier.h"
 #include "../../application/InstanceManager.h"
 #include "../../plugins/encryption/DefaultHash.h"
 #include "../../application/Hash.h"

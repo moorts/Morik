@@ -6,7 +6,7 @@
 #include "plugins/encryption/DefaultHash.h"
 #include "application/EntryRepository.h"
 #include "application/PasswordEncryption.h"
-#include "application/PasswordVerifier.h"
+#include "application/MasterPasswordVerifier.h"
 #include "application/InstanceManager.h"
 #include "adapters/ui/UiDataHelper.h"
 #include "plugins/ui/CommandLineInterface.h"

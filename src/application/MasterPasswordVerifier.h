@@ -1,5 +1,5 @@
-#ifndef SRC_PASSWORTVERIFIER_H
-#define SRC_PASSWORDVERIFIER_H
+#ifndef SRC_MASTERPASSWORTVERIFIER_H
+#define SRC_MASTERPASSWORDVERIFIER_H
 
 #include "EntryFactory.h"
 #include "InstanceManager.h"
