@@ -20,6 +20,7 @@ namespace Adapters::Database
         bool removeEntry(const DDD::ValueObjects::EntryId &entryId) const;
         bool modifyEntry(const DDD::ValueObjects::EntryId &entryId, const DatabaseColumn &column, const std::string &newValue) const;
     private:
+        bool performErrorCheck(std::string errorString) const;
         const AbstractSqlDatabase *db;
     };
 } // Adapters::Database

@@ -2,7 +2,7 @@
 #define SRC_ENTRYREPOSITORY_H
 
 #include <set>
-#include "../AbstractDatabaseInterface.h"
+#include "AbstractDatabaseInterface.h"
 #include "Entry.h"
 #include "EntryId.h"
 
@@ -14,9 +14,9 @@ namespace DDD::Repositories {
         std::set<Entities::Entry> find(ValueObjects::EntryName entryName) const;
         void store(const Entities::Entry &entry) const;
         void remove(const Entities::Entry &entry) const;
-        void modifyEntryName(const Entities::Entry &entry, const ValueObjects::EntryName &newEntryName) const;
-        void modifyLogin(const Entities::Entry &entry, const ValueObjects::Login &newLogin) const;
-        void modifyEncryptedPassword(const Entities::Entry &entry, const ValueObjects::EncryptedPassword &newEncryptedPassword) const;
+        void modifyEntry(const Entities::Entry &entry, const ValueObjects::EntryName &newEntryName) const;
+        void modifyEntry(const Entities::Entry &entry, const ValueObjects::Login &newLogin) const;
+        void modifyEntry(const Entities::Entry &entry, const ValueObjects::EncryptedPassword &newEncryptedPassword) const;
         ValueObjects::EntryId nextId() const;
     private:
         const AbstractDatabaseInterface* dbInterface;

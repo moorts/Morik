@@ -1,8 +1,8 @@
 #ifndef SRC_INSTANCEMANAGER_H
 #define SRC_INSTANCEMANAGER_H
 
-#include "DDD/EntryRepository.h"
-#include "DDD/PasswordEncryption.h"
+#include "EntryRepository.h"
+#include "PasswordEncryption.h"
 
 using namespace DDD;
 

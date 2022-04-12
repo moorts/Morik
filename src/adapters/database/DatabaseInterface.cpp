@@ -30,22 +30,14 @@ bool DatabaseInterface::insertEntry(const DDD::Entities::Entry &entry) const
 {
     std::string sql = "INSERT INTO passwords VALUES(\"" + std::to_string(entry.getEntryId().getInt()) + "\",\"" + entry.entryName.getString() + "\",\"" + entry.login.getString() + "\",\"" + entry.encryptedPassword.getString() + "\");";
     auto [entrySet, error] = db->executeSql(sql);
-    if (!error.empty())
-    {
-        return false;
-    }
-    return true;
+    return performErrorCheck(error);
 }
 
 bool DatabaseInterface::removeEntry(const DDD::ValueObjects::EntryId &entryId) const
 {
     std::string sql = "DELETE FROM passwords WHERE EntryId = \"" + std::to_string(entryId.getInt()) + "\";";
     auto [entrySet, error] = db->executeSql(sql);
-    if (!error.empty())
-    {
-        return false;
-    }
-    return true;
+    return performErrorCheck(error);
 }
 
 bool DatabaseInterface::modifyEntry(const DDD::ValueObjects::EntryId &entryId, const DatabaseColumn &column, const std::string &newValue) const
@@ -53,7 +45,12 @@ bool DatabaseInterface::modifyEntry(const DDD::ValueObjects::EntryId &entryId, c
     std::string columnString = getDatabaseColumnString(column);
     std::string sql = "UPDATE passwords SET " + columnString + " = \"" + newValue + "\" WHERE EntryId = \"" + std::to_string(entryId.getInt()) + "\";";
     auto [entrySet, error] = db->executeSql(sql);
-    if (!error.empty())
+    return performErrorCheck(error);
+}
+
+bool DatabaseInterface::performErrorCheck(std::string errorString) const
+{
+    if (!errorString.empty())
     {
         return false;
     }

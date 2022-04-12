@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../../../application/DDD/EntryFactory.h"
+#include "../../application/EntryFactory.h"
 
 TEST(CreateEntry, DDDTests) {
     Entities::Entry actual = Factories::EntryFactory::createEntry(1, "TestEntry", "TestLogin", "SomeEncryptedPassword");
