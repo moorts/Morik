@@ -15,11 +15,11 @@ public:
         passwordEncryptor = pPasswordEncryptor;
         passwordDecryptor = pPasswordDecryptor;
     }
-    static void addPasswordGeneratorPointer(const Services::PasswordGenerator* pPasswordGenerator) { passwordGenerator = pPasswordGenerator; }
+    static void addPasswordGeneratorPointer(Services::PasswordGenerator* const pPasswordGenerator) { passwordGenerator = pPasswordGenerator; }
     static const Repositories::EntryRepository* entryRepository;
     static const Services::PasswordEncryptor* passwordEncryptor;
     static const Services::PasswordDecryptor* passwordDecryptor;
-    static const Services::PasswordGenerator* passwordGenerator;
+    static Services::PasswordGenerator* passwordGenerator;
 };
 
 
