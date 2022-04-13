@@ -4,8 +4,8 @@
 #include "../../application/PasswordGenerator.h"
 
 TEST(PasswordGenerator, DDDTests) {
-    MersenneTwister mt(0);
+    MersenneTwister mt(666);
     DDD::Services::PasswordGenerator passwordGenerator(&mt);
 
-    EXPECT_EQ(passwordGenerator.getRandomPassword().getString(), "Y3$\\4+Y\\M68JOB'f;zJR");
+    EXPECT_EQ(passwordGenerator.getRandomPassword().getString(), "§j\\t!l%(,EbwMxezjQUv");
 }
