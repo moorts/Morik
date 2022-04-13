@@ -148,8 +148,27 @@ void CommandLineInterface::mainloop() const
             std::cin >> entryNameString;
             std::cout << "Enter login: ";
             std::cin >> loginString;
-            std::cout << "Enter password: ";
-            std::cin >> passwordString;
+            std::cout << "Do you want to enter a password or generate it?" << std::endl;
+            std::cout << "1 - enter password by hand" << std::endl;
+            std::cout << "2 - generate password" << std::endl;
+            int selection;
+            std::string selectionString;
+            std::cin >> selectionString;
+            try {
+                selection = std::stoi(selectionString);
+            } catch (const std::invalid_argument& exception) {
+                std::cout << "Invalid selection" << std::endl << std::endl;
+                continue;
+            }
+            if (selection == 1) {
+                std::cout << "Enter password: ";
+                std::cin >> passwordString;
+            } else if (selection == 2) {
+//                passwordString = InstanceManager::passwordGenerator->getRandomPassword().getString();
+            } else {
+                std::cout << "Invalid selection" << std::endl << std::endl;
+                continue;
+            }
             uiDataHelper.createNewEntry(entryNameString, loginString, passwordString);
         }
         else if (selection == 4) { return; }
