@@ -6,8 +6,8 @@
 
 class MersenneTwister : public PseudoRandomNumberGenerator {
 public:
-    MersenneTwister();
-    int nextInt(int max) const;
+    MersenneTwister(unsigned int seed);
+    unsigned int nextUInt(unsigned int max);
 private:
     std::mt19937 mt;
 };

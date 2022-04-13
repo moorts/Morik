@@ -3,7 +3,7 @@
 
 class PseudoRandomNumberGenerator {
 public:
-    virtual int nextInt(int max) const = 0;
+    virtual unsigned int nextUInt(unsigned int max) = 0;
 };
 
 #endif //SRC_PSEUDORANDOMNUMBERGENERATOR_H
