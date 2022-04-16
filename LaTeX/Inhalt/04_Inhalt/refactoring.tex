@@ -1,1 +1,17 @@
 \chapter{Refactoring}
+\section{Code Smells}
+\subsection{Duplicated Code}
+Bei dem ersten Code Smell, der identifiziert wurde, handelt es sich um duplicated code, also doppelt vorhandenen Code. Dies führt dazu, dass Änderungen an einer Stelle keine Auswirkungen auf die anderen Stellen haben, was zu mehrfachem Pflegeaufwand führt. Der Code Smell kann in \href{https://github.com/moorts/Morik/blob/8c90c65347f25b5a5a26f68c66189984dfb0bca6/src/adapters/database/DatabaseInterface.cpp}{dieser Version des DatabaseInterfaces} gesehen werden. Es geht dabei um den Codeabschnitt, der prüft, ob beim Ausführen des SQL-Statements ein Fehler aufgetreten ist. Dieser Codeabschnitt ist in den Methoden \textit{insertEntry}, \textit{removeEntry} und \textit{modifyEntry} vorhanden.
+
+\subsection{Long Method}
+Ein weiterer Code Smell, der in Morik vorhanden ist, ist long method, also eine lange Klassenmethode. Dieser Code Smell ist in der Methode \textit{mainloop} der Klasse \href{https://github.com/moorts/Morik/blob/main/src/plugins/ui/CommandLineInterface.cpp}{\textit{CommandLineInterface}} zu beobachten, die über 150 Zeilen lang ist.
+
+\subsection{Switch Statement}
+Der dritte Code Smell, der gefunden wurde, ist das Switch Statement. Dieses ist nicht flexibel, da es ausschließlich in-place wachsen kann und hat außerdem eine fehleranfällige Syntax, da sehr leicht das \textit{break} am Ende eines Falls vergessen werden kann, was dazu führt, dass mehrer Fälle ausgeführt werden. Dieser Code Smell wurde ebenfalls in der \textit{mainloop}-Methode der \textit{CommandLineInterface}-Klasse gefunden und ist in \href{https://github.com/moorts/Morik/blob/5fad45957d77585d88bf3330cab6004315e6e2e3/src/plugins/ui/CommandLineInterface.cpp#L27}{Zeile 27} zu sehen.
+
+\section{Refactorings}
+\subsection{Extract Method}
+Das erste Refactoring beseitigt den ersten Code Smell, also den duplicated code im DatabaseInterface. Um dies zu beheben wurde das Refactoring Extract Method angewendet, was in diesem \href{https://github.com/moorts/Morik/commit/09ea85004227950dbf7d30e7bb6de26f92b1ea85}{Commit} beobachtet werden kann. Das Refactoring führt dazu, dass zukünftig nur noch eine zentrale Stelle anzupassen ist, sollte das Verhalten bei einem Fehler verändert werden müssen. Entsprechend ist nur noch eine Änderung notwendig und jede Codestelle, die die Funktion aufruft ändert sich gleichermaßen. Der Pflegeaufwand nimmt also stark ab, während das Ausführen des Codes einheitlicher abläuft.
+
+\subsection{Rename Method}
+Ein weiteres Refactoring, das angewendet wurde ist Rename Method. Dies wurde in diesem \href{https://github.com/moorts/Morik/commit/e807014b1ae894640a8a87f2765fa2ba5d95ea19}{Commit} durchgeführt und sorgt für eindeutigere Namen der Methoden. Der Leser dieser drei Methodenaufrufe muss demnach nicht mehr die Parameter inspizieren, um herauszufinden welche der drei Methoden tatsächlich aufgerufen wird, sondern kann dies direkt am Methodennamen erkennen und weiß daher schneller welches Feld des Entrys bei der betrachteten Codestelle modifiziert wird.
