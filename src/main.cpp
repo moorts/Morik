@@ -8,6 +8,8 @@
 #include "application/PasswordEncryption.h"
 #include "application/PasswordVerifier.h"
 #include "application/InstanceManager.h"
+#include "plugins/prng/MersenneTwister.h"
+#include "application/PasswordGenerator.h"
 
 int main() {
     const Plugins::Database::SQLiteDatabase database("../passwords.db");
@@ -25,6 +27,11 @@ int main() {
     const Hash* hash = new DefaultHash();
     const DDD::Services::MasterPasswordVerifier verifier(hash);
     verifier.setMasterPassword(masterPassword);
+
+    std::random_device device;
+    MersenneTwister mt(device());
+    DDD::Services::PasswordGenerator passwordGenerator(&mt);
+    InstanceManager::addPasswordGeneratorPointer(&passwordGenerator);
 
     return 0;
 }
