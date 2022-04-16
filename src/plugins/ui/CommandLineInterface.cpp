@@ -164,7 +164,17 @@ void CommandLineInterface::mainloop() const
                 std::cout << "Enter password: ";
                 std::cin >> passwordString;
             } else if (selection == 2) {
-//                passwordString = InstanceManager::passwordGenerator->getRandomPassword().getString();
+                std::cout << "Enter the length the generated password should have: ";
+                int length;
+                std::string lengthString;
+                std::cin >> lengthString;
+                try {
+                    length = std::stoi(lengthString);
+                } catch (const std::invalid_argument& exception) {
+                    std::cout << "Invalid length" << std::endl << std::endl;
+                    continue;
+                }
+//                passwordString = InstanceManager::passwordGenerator->getRandomPassword(ValueObjects::PasswordLength(length)).getString();
             } else {
                 std::cout << "Invalid selection" << std::endl << std::endl;
                 continue;
