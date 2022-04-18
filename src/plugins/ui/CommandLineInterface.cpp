@@ -175,7 +175,7 @@ void CommandLineInterface::mainloop() const
                         std::cout << "Invalid length" << std::endl << std::endl;
                         continue;
                     }
-                    //                passwordString = InstanceManager::passwordGenerator->getRandomPassword(ValueObjects::PasswordLength(length)).getString();
+                    passwordString = InstanceManager::passwordGenerator->getRandomPassword(ValueObjects::PasswordLength(length)).getString();
                 } else {
                     std::cout << "Invalid selection" << std::endl << std::endl;
                     continue;
