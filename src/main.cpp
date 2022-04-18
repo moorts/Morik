@@ -10,6 +10,8 @@
 #include "application/InstanceManager.h"
 #include "adapters/ui/UiDataHelper.h"
 #include "plugins/ui/CommandLineInterface.h"
+#include "plugins/prng/MersenneTwister.h"
+#include "application/PasswordGenerator.h"
 
 int main() {
     const Plugins::Database::SQLiteDatabase database("../passwords.db");
@@ -35,6 +37,11 @@ int main() {
     const DDD::Services::PasswordEncryptor passwordEncryptor(c, masterPassword);
     const DDD::Services::PasswordDecryptor passwordDecryptor(c, masterPassword);
     InstanceManager::addEncryptionPointers(&passwordEncryptor, &passwordDecryptor);
+
+    std::random_device device;
+    MersenneTwister mt(device());
+    DDD::Services::PasswordGenerator passwordGenerator(&mt);
+    InstanceManager::addPasswordGeneratorPointer(&passwordGenerator);
 
     cli.mainloop();
 
