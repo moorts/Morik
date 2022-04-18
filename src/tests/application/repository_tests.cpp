@@ -16,13 +16,18 @@ TEST(GetEntry, DDDTests) {
 
 TEST(FindWithName, DDDTests) {
     AbstractDatabaseInterfaceMock mock;
-    std::set<Entities::Entry> entries;
     ValueObjects::EntryName entryName("TestEntry");
-    entries.emplace(ValueObjects::EntryId(1), entryName, ValueObjects::Login("TestLogin"), ValueObjects::EncryptedPassword("SomeEncryptedPassword"));
-    entries.emplace(ValueObjects::EntryId(2), entryName, ValueObjects::Login("AnotherTestLogin"), ValueObjects::EncryptedPassword("AnotherEncryptedPassword"));
-    EXPECT_CALL(mock, getEntries(ValueObjects::EntryName("TestEntry"))).Times(1).WillOnce(Return(entries));
+    Entities::Entry expected0(ValueObjects::EntryId(1), entryName, ValueObjects::Login("TestLogin"), ValueObjects::EncryptedPassword("SomeEncryptedPassword"));
+    Entities::Entry expected1(ValueObjects::EntryId(2), entryName, ValueObjects::Login("AnotherTestLogin"), ValueObjects::EncryptedPassword("AnotherEncryptedPassword"));
+    std::set<Entities::Entry> expectedEntries;
+    expectedEntries.emplace(expected0);
+    expectedEntries.emplace(expected1);
+    EXPECT_CALL(mock, getEntries(ValueObjects::EntryName("TestEntry"))).Times(1).WillOnce(Return(expectedEntries));
 
     Repositories::EntryRepository repo(&mock);
+    std::set<Entities::Entry> actualEntries = repo.find(ValueObjects::EntryName("TestEntry"));
 
-    EXPECT_EQ(2, repo.find(ValueObjects::EntryName("TestEntry")).size());
+    EXPECT_EQ(2, actualEntries.size());
+    EXPECT_NE(actualEntries.end(), actualEntries.find(expected0));
+    EXPECT_NE(actualEntries.end(), actualEntries.find(expected1));
 }
