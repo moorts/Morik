@@ -9,7 +9,7 @@ Ein weiteres Plugin ist die Verschlüsselungsbibliothek. Als solche wurde Crypto
 
 \subsection{User Interface}
 
-Dieses Plugin Implementiert eine Benutzerschnittstelle für das Programm. Eine solche Schnittstelle ermöglicht Interaktion mit dem Password Manager für einen Benutzer, durch Umsetzung der zentralen Schleife. Bei der Schnittstelle handelt es sich um ein \href{https://github.com/moorts/Morik/blob/main/src/plugins/ui/CommandLineInterface.h}{\textit{CommandLineInterface}}, welches das \href{https://github.com/moorts/Morik/blob/main/src/application/AbstractUserInterface.h}{\textit{AbstractUserInterface}} Interface aus der Applikationsschicht implementiert. Auch hier findet folglich eine Dependency-Inversion statt, da das Plugin abhängig von Interface aus der Applikationsschicht ist.
+Dieses Plugin Implementiert eine Benutzerschnittstelle für das Programm. Eine solche Schnittstelle ermöglicht Interaktion mit dem Password Manager für einen Benutzer, durch Umsetzung der zentralen Schleife. Bei der Schnittstelle handelt es sich um ein \href{https://github.com/moorts/Morik/blob/main/src/plugins/ui/CommandLineInterface.h}{\textit{CommandLineInterface}}, welches das \href{https://github.com/moorts/Morik/blob/main/src/application/AbstractUserInterface.h}{\textit{AbstractUserInterface}} Interface aus der Applikationsschicht implementiert. Auch hier findet folglich eine Dependency-Inversion statt, da das Plugin abhängig vom Interface aus der Applikationsschicht ist.
 
 \subsection{Pseudo-Zufallszahlen-Generator}
 
@@ -26,4 +26,4 @@ Die Klasse \href{https://github.com/moorts/Morik/blob/user_interface/src/adapter
 
 \section{Applikationskern}
 
-Der Kern des Programmes, befindlich in \href{https://github.com/moorts/Morik/tree/main/src/application}{application} Ordner, ist zuständig für die Umsetzung der Domänenkonzepte und enthält zusätzlich Pure Fabrication Klassen (bspw. \href{https://github.com/moorts/Morik/blob/main/src/application/EntryFactory.h}{\textit{EntryFactory}}) und Interfaces, welche von den Plugins implementiert werden (siehe oben). Der Applikationskern hat keine externen Abhängigkeiten, durch konsequente Anwendung von Dependency-Inversion. 
+Der Kern des Programmes, befindlich im \href{https://github.com/moorts/Morik/tree/main/src/application}{application} Ordner, ist zuständig für die Umsetzung der Domänenkonzepte und enthält zusätzlich Pure Fabrication Klassen (bspw. \href{https://github.com/moorts/Morik/blob/main/src/application/InstanceManager.h}{\textit{InstanceManager}}) und Interfaces, welche von den Plugins implementiert werden (siehe oben). Der Applikationskern hat keine externen Abhängigkeiten, durch konsequente Anwendung der Dependency-Inversion. 
