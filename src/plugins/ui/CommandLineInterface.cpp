@@ -126,9 +126,36 @@ void CommandLineInterface::mainloop() const
                             InstanceManager::entryRepository->modifyLogin(selectedEntry,
                                                                           ValueObjects::Login(newLoginString));
                         } else if (fieldSelection == 3) {
-                            std::cout << "Enter new password: ";
+                            std::cout << "Do you want to enter a new password or generate it?" << std::endl;
+                            std::cout << "1 - enter new password by hand" << std::endl;
+                            std::cout << "2 - generate new password" << std::endl;
+                            std::cin >> selectionString;
+                            try {
+                                selection = std::stoi(selectionString);
+                            } catch (const std::invalid_argument &exception) {
+                                std::cout << "Invalid selection" << std::endl << std::endl;
+                                continue;
+                            }
                             std::string newPasswordString;
-                            std::cin >> newPasswordString;
+                            if (selection == 1) {
+                                std::cout << "Enter new password: ";
+                                std::cin >> newPasswordString;
+                            } else if (selection == 2) {
+                                std::cout << "Enter the length the generated password should have: ";
+                                int length;
+                                std::string lengthString;
+                                std::cin >> lengthString;
+                                try {
+                                    length = std::stoi(lengthString);
+                                } catch (const std::invalid_argument &exception) {
+                                    std::cout << "Invalid length" << std::endl << std::endl;
+                                    continue;
+                                }
+                                newPasswordString = InstanceManager::passwordGenerator->getRandomPassword(ValueObjects::PasswordLength(length)).getString();
+                            } else {
+                                std::cout << "Invalid selection" << std::endl << std::endl;
+                                continue;
+                            }
                             uiDataHelper.modifyPassword(selectedEntry, newPasswordString);
                         } else {
                             std::cout << "Invalid selection" << std::endl;
