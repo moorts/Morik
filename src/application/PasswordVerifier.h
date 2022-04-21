@@ -26,7 +26,7 @@ namespace DDD::Services {
 
             try {
                 Entities::Entry entry = InstanceManager::entryRepository->getEntry(ValueObjects::EntryId(0));
-                InstanceManager::entryRepository->modifyEntry(entry, verificationHash);
+                InstanceManager::entryRepository->modifyEncryptedPassword(entry, verificationHash);
             } catch (...) {
                 Entities::Entry newMasterPasswordHash = Factories::EntryFactory::createEntry(0, "masterPasswordHash", "master", rawHash);
                 InstanceManager::entryRepository->store(newMasterPasswordHash);
