@@ -14,14 +14,14 @@ DDD::Entities::Entry DatabaseInterface::getEntry(const DDD::ValueObjects::EntryI
 
 std::set<DDD::Entities::Entry> DatabaseInterface::getEntries(const DDD::ValueObjects::EntryName &entryName) const
 {
-    std::string sql = "SELECT * FROM passwords WHERE EntryName = \"" + entryName.getString() + "\";";
+    std::string sql = "SELECT * FROM passwords WHERE EntryName LIKE \"%" + entryName.getString() + "%\";";
     auto [entrySet, error] = db->executeSql(sql);
     return entrySet;
 }
 
 std::set<DDD::Entities::Entry> DatabaseInterface::getAllEntries() const
 {
-    std::string sql = "SELECT * FROM passwords;";
+    std::string sql = "SELECT * FROM passwords WHERE EntryId <> 0;";
     auto [entrySet, error] = db->executeSql(sql);
     return entrySet;
 }

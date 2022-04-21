@@ -12,6 +12,7 @@ namespace DDD::Repositories {
         EntryRepository(const AbstractDatabaseInterface* const dbInterface) { this->dbInterface = dbInterface; }
         Entities::Entry getEntry(ValueObjects::EntryId entryId) const;
         std::set<Entities::Entry> find(ValueObjects::EntryName entryName) const;
+        std::set<Entities::Entry> getAllEntries() const;
         void store(const Entities::Entry &entry) const;
         void remove(const Entities::Entry &entry) const;
         void modifyEntryName(const Entities::Entry &entry, const ValueObjects::EntryName &newEntryName) const;

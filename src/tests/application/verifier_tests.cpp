@@ -1,10 +1,12 @@
 #include <gtest/gtest.h>
 #include "AbstractDatabaseInterfaceMock.h"
 #include "../../application/EntryRepository.h"
-#include "../../application/PasswordVerifier.h"
+#include "../../application/MasterPasswordVerifier.h"
 #include "../../application/InstanceManager.h"
 #include "../../plugins/encryption/DefaultHash.h"
 #include "../../application/Hash.h"
+#include "../../adapters/ui/UiDataHelper.h"
+#include "../../plugins/ui/CommandLineInterface.h"
 #include <stdexcept>
 
 using namespace DDD;
@@ -18,8 +20,10 @@ TEST(VerifyMasterPassword, DDDTests) {
 
     std::string masterPassword("masterPassword");
 
+    Adapters::UI::UiDataHelper uiDataHelper;
+    Plugins::UI::CommandLineInterface cli(uiDataHelper);
     Hash* hash = new DefaultHash();
-    Services::MasterPasswordVerifier verifier(hash);
+    Services::MasterPasswordVerifier verifier(hash, &cli);
     ValueObjects::EncryptedPassword hashedPassword(hash->compute(hash->compute(masterPassword)));
 
     ValueObjects::EntryId id(0);
@@ -30,7 +34,7 @@ TEST(VerifyMasterPassword, DDDTests) {
 
 
     Repositories::EntryRepository* repo = new Repositories::EntryRepository(&mock);
-    InstanceManager::addPointers(repo, nullptr, nullptr);
+    InstanceManager::addEntryRepositoryPointer(repo);
 
     ValueObjects::PlaintextPassword plainMasterPassword(masterPassword);
     verifier.setMasterPassword(plainMasterPassword);

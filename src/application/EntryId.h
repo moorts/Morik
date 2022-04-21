@@ -8,7 +8,7 @@ namespace DDD::ValueObjects {
         unsigned int getInt() const { return id; }
         bool operator==(const EntryId &other) const { return other.id == id; }
         bool operator!=(const EntryId &other) const { return other.id != id; }
-        bool operator<(const EntryId &other) const { return other.id < id; }
+        bool operator<(const EntryId &other) const { return id < other.id; }
     private:
         const unsigned int id;
     };

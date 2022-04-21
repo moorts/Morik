@@ -27,8 +27,14 @@ public:
 class DefaultHash : public Hash {
 public:
     std::string compute(std::string plain) const {
+        HexEncoder hexEncoder(nullptr);
         SecByteBlock hash = Sha256::calculate(plain);
-        return std::string((const char*) hash.data(), hash.size());
+        std::string out;
+        hexEncoder.Put(hash, hash.size());
+        word64 size = hexEncoder.MaxRetrievable();
+        out.resize(size);
+        hexEncoder.Get((byte*) &out[0], out.size());
+        return out;
     }
 };
 

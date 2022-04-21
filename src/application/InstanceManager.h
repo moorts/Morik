@@ -9,9 +9,9 @@ using namespace DDD;
 
 class InstanceManager {
 public:
-    static void addPointers(const Repositories::EntryRepository* pEntryRepository, const Services::PasswordEncryptor* pPasswordEncryptor, const Services::PasswordDecryptor* pPasswordDecryptor)
+    static void addEntryRepositoryPointer(const Repositories::EntryRepository* pEntryRepository) { entryRepository = pEntryRepository; }
+    static void addEncryptionPointers(const Services::PasswordEncryptor* pPasswordEncryptor, const Services::PasswordDecryptor* pPasswordDecryptor)
     {
-        entryRepository = pEntryRepository;
         passwordEncryptor = pPasswordEncryptor;
         passwordDecryptor = pPasswordDecryptor;
     }

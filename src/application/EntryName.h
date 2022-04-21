@@ -9,6 +9,7 @@ namespace DDD::ValueObjects {
         EntryName(const std::string &name) : name(name) {}
         std::string getString() const { return name; }
         bool operator==(const EntryName &other) const { return other.name == name; }
+        bool operator<(const EntryName &other) const { return name < other.name; }
     private:
         const std::string name;
     };

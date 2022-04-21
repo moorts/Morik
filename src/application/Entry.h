@@ -17,7 +17,7 @@ namespace DDD::Entities {
         const ValueObjects::EntryId getEntryId() const { return entryId; }
         bool operator==(const Entry &other) const { return other.entryId == entryId; }
         bool operator!=(const Entry &other) const { return other.entryId != entryId; }
-        bool operator<(const Entry &other) const { return other.entryId < entryId; }
+        bool operator<(const Entry &other) const { return entryId < other.entryId; }
     private:
         const ValueObjects::EntryId entryId;
     };
