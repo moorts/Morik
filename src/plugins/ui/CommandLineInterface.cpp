@@ -117,13 +117,13 @@ void CommandLineInterface::mainloop() const
                             std::cout << "Enter new entry name: ";
                             std::string newEntryNameString;
                             std::cin >> newEntryNameString;
-                            InstanceManager::entryRepository->modifyEntry(selectedEntry,
+                            InstanceManager::entryRepository->modifyEntryName(selectedEntry,
                                                                           ValueObjects::EntryName(newEntryNameString));
                         } else if (fieldSelection == 2) {
                             std::cout << "Enter new login: ";
                             std::string newLoginString;
                             std::cin >> newLoginString;
-                            InstanceManager::entryRepository->modifyEntry(selectedEntry,
+                            InstanceManager::entryRepository->modifyLogin(selectedEntry,
                                                                           ValueObjects::Login(newLoginString));
                         } else if (fieldSelection == 3) {
                             std::cout << "Enter new password: ";

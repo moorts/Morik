@@ -25,5 +25,5 @@ void UiDataHelper::createNewEntry(const std::string& entryNameString, const std:
 void UiDataHelper::modifyPassword(const DDD::Entities::Entry& entry, const std::string& newPlaintextPasswordString) const
 {
     ValueObjects::EncryptedPassword newEncryptedPassword = InstanceManager::passwordEncryptor->encrypt(ValueObjects::PlaintextPassword(newPlaintextPasswordString));
-    InstanceManager::entryRepository->modifyEntry(entry, newEncryptedPassword);
+    InstanceManager::entryRepository->modifyEncryptedPassword(entry, newEncryptedPassword);
 }
