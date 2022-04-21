@@ -46,5 +46,7 @@ void EntryRepository::modifyEncryptedPassword(const Entities::Entry &entry, cons
 ValueObjects::EntryId EntryRepository::nextId() const
 {
     std::set<Entities::Entry> allEntries = dbInterface->getAllEntries();
+    if (allEntries.empty())
+        return 1;
     return ValueObjects::EntryId(allEntries.rbegin()->getEntryId().getInt()+1);
 }
