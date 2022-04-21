@@ -7,5 +7,5 @@ TEST(PasswordGenerator, DDDTests) {
     MersenneTwister mt(666);
     DDD::Services::PasswordGenerator passwordGenerator(&mt);
 
-    EXPECT_EQ(passwordGenerator.getRandomPassword().getString(), "§j\\t!l%(,EbwMxezjQUv");
+    EXPECT_EQ(passwordGenerator.getRandomPassword(20).getString(), "§j\\t!l%(,EbwMxezjQUv");
 }
