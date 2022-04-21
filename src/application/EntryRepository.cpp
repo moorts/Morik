@@ -28,17 +28,17 @@ void EntryRepository::remove(const Entities::Entry &entry) const
     dbInterface->removeEntry(entry.getEntryId());
 }
 
-void EntryRepository::modifyEntry(const Entities::Entry &entry, const ValueObjects::EntryName &newEntryName) const
+void EntryRepository::modifyEntryName(const Entities::Entry &entry, const ValueObjects::EntryName &newEntryName) const
 {
     dbInterface->modifyEntry(entry.getEntryId(), DatabaseColumn::EntryName, newEntryName.getString());
 }
 
-void EntryRepository::modifyEntry(const Entities::Entry &entry, const ValueObjects::Login &newLogin) const
+void EntryRepository::modifyLogin(const Entities::Entry &entry, const ValueObjects::Login &newLogin) const
 {
     dbInterface->modifyEntry(entry.getEntryId(), DatabaseColumn::Login, newLogin.getString());
 }
 
-void EntryRepository::modifyEntry(const Entities::Entry &entry, const ValueObjects::EncryptedPassword &newEncryptedPassword) const
+void EntryRepository::modifyEncryptedPassword(const Entities::Entry &entry, const ValueObjects::EncryptedPassword &newEncryptedPassword) const
 {
     dbInterface->modifyEntry(entry.getEntryId(), DatabaseColumn::EncryptedPassword, newEncryptedPassword.getString());
 }
