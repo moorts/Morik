@@ -1,5 +1,6 @@
 #include "CommandLineInterface.h"
 #include <iostream>
+#include <map>
 #include "../../application/InstanceManager.h"
 
 using namespace Plugins::UI;
@@ -71,8 +72,13 @@ void CommandLineInterface::mainloop() const
                     std::cout << "Invalid selection" << std::endl;
                     continue;
                 }
-                std::cout << "selection: ";
 
+                if (entrySelectionMap.empty()) {
+                    std::cout << "No entries found" << std::endl << std::endl;
+                    continue;
+                }
+
+                std::cout << "selection: ";
                 int entrySelection;
                 std::string entrySelectionString;
                 std::cin >> entrySelectionString;
