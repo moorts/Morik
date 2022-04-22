@@ -10,6 +10,8 @@
 
 #include "../../application/Hash.h"
 
+using namespace CryptoPP;
+
 class Sha256 {
 public:
     static SecByteBlock calculate(std::string plain) {

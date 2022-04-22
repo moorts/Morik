@@ -1,10 +1,10 @@
 #ifndef SRC_PASSWORDGENERATOR_H
 #define SRC_PASSWORDGENERATOR_H
 
+#include <vector>
 #include "PseudoRandomNumberGenerator.h"
 #include "PlaintextPassword.h"
 #include "PasswordLength.h"
-#include <iostream>
 
 namespace DDD::Services {
     class PasswordGenerator {

@@ -3,8 +3,8 @@
 
 #include <string>
 #include <set>
-#include "../adapters/database/AbstractSqlDatabase.h"
 #include "DatabaseColumn.h"
+#include "Entry.h"
 
 class AbstractDatabaseInterface {
 public:
