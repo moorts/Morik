@@ -1,4 +1,6 @@
 \chapter{Einleitung}
 Morik ist ein Passwort Manager, der die gespeicherten Passwörter verschlüsselt in einer Datenbank aufbewahrt. Zusätzlich zu den Passwörtern wird ein Name des Eintrags gespeichert sowie ein optionaler Login. Neue Einträge können sehr einfach hinzugefügt werden. Von jedem vorhandenen Eintrag kann der Benutzer das Passwort im Klartext abfragen oder aber den Eintrag bearbeiten sowie löschen. Möchte der Benutzer ein neues Passwort für einen Eintrag vergeben, so kann dies entweder von Hand getan werden oder der Benutzer verwendet den Passwortgenerator von Morik, wodurch zufällige Passwörter variabler Länge generiert werden. Dies steigert die Sicherheit der Passwörter im Vergleich zur manuellen Eingabe.
 
+Um die Applikation bauen zu können, ist es notwendig, einige Abhängigkeiten zu installieren. Dafür kann das \equote{apt_install_script} mit Superuser-Rechten ausgeführt werden, das die benötigten Pakete automatisch installiert. Anschließend kann das \enquote{run_tests}-Skript ausgeführt werden, das zuerst die Applikation baut und anschließend direkt die Tests ausführt. Somit sind mögliche Fehler bspw. durch Inkompatibilitäten direkt nach dem Bauen durch die Tests identifizierbar.
+
 In den folgenden Kapiteln wird auf die einzelnen Kriterien des Programmentwurfs mit Bezug zum Code von Morik eingegangen.
