@@ -26,4 +26,17 @@ Die Klasse \href{https://github.com/moorts/Morik/blob/main/src/adapters/ui/UiDat
 
 \section{Applikationskern}
 
-Der Kern des Programmes, befindlich im \href{https://github.com/moorts/Morik/tree/main/src/application}{application} Ordner, ist zuständig für die Umsetzung der Domänenkonzepte und enthält zusätzlich Pure Fabrication Klassen (bspw. \href{https://github.com/moorts/Morik/blob/main/src/application/InstanceManager.h}{\textit{InstanceManager}}) und Interfaces, welche von den Plugins implementiert werden (siehe oben). Der Applikationskern hat keine externen Abhängigkeiten, durch konsequente Anwendung der Dependency-Inversion. 
+Der Kern des Programmes, befindlich im \href{https://github.com/moorts/Morik/tree/main/src/application}{application} Ordner, ist zuständig für die Umsetzung der Domänenkonzepte und enthält zusätzlich Pure Fabrication Klassen (bspw. \href{https://github.com/moorts/Morik/blob/main/src/application/InstanceManager.h}{\textit{InstanceManager}}) und Interfaces, welche von den Plugins implementiert werden (siehe oben). Die Domänenkonzepte sind eng an die gewünschte Funktionalität der Anwendung gebunden. Sie entsprechen den festen Anforderungen an den Passwort Manager, während andere Funktionalitäten, wie konkrete Verschlüsselungsalgorithmen nicht zwingend notwendig/austauschbar sind. Auf dieser Grundlage wurde die Aufteilung in Kern und Plugins/Adapter gewählt. Der Applikationskern hat keine externen Abhängigkeiten, durch konsequente Anwendung der Dependency-Inversion. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.0\textwidth]{Bilder/architecture_diagram.png}
+	\caption{Abhängigkeitsdiagram}
+	\label{fig:CADiag}
+\end{figure}
+
+\section{Bewertung}
+
+Die gewählte Architektur war größtenteils angenehm umzusetzen und hat im Endeffekt für ein übersichtliches Projekt gesorgt. Im Laufe der Entwicklung gab es zwar einige fehlerhafte Abhängigkeiten, die korrigiert werden mussten, dies ist jedoch kein Grund für eine Architekturänderung. Neue Funktionen, besonders neue Implementierungen der Interfaces der Applikationsschicht (bspw. der Verschlüsselung), sind einfach umzusetzen.
+
+Alles in allem sind wir zufrieden mit der Architektur und finden sie angemessen für ein Projekt dieser Größe/Form.
