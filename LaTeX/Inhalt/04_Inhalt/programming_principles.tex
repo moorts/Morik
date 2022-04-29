@@ -48,7 +48,7 @@ Dieses Prinzip besagt, dass high-level Komponenten keine Abhängigkeiten auf low
 
 Morik ist größtenteils frei von Redundanzen, bei denen tatsächliche Funktionalität mehrmals implementiert wird. Natürlich gibt es einige Methodenhierarchien, die leicht redundant sind (bspw. \textit{PasswordEncryptor::encrypt} -> \textit{Cipher::encrypt} -> \textit{CBC\_Cipher::encrypt}), jedoch sind diese notwendig um den Architektur-Anforderungen zu entsprechen. Außerdem gibt es bspw. Wiederholungen beim Einlesen der Benutzereingaben im \textit{CommandLineInterface}\footnote{siehe \href{https://github.com/moorts/Morik/blob/fc02135ce2d842324fcd5adfbcbe4857f6a7169b/src/plugins/ui/CommandLineInterface.cpp\#L18}{Zeile 18-26} und \href{https://github.com/moorts/Morik/blob/fc02135ce2d842324fcd5adfbcbe4857f6a7169b/src/plugins/ui/CommandLineInterface.cpp\#L43}{Zeile 43-51}}. Auf weitere Wiederholungen im Code wird in \autoref{chap:refactoring} eingegangen.
 
-Ein Beispiel für die geziehlte Vermeidung von Redundanz ist der Einsatz von Templates der \textit{CBC\_Cipher} Klasse, um verschiedene Blockchiffren verwenden zu können, ohne mehrere Klassen von Hand zu implementieren\footnote{siehe \url{https://github.com/moorts/Morik/blob/main/src/plugins/encryption/CBC_Cipher.h}}.
+Ein Beispiel für die gezielte Vermeidung von Redundanz ist der Einsatz von Templates der \textit{CBC\_Cipher} Klasse, um verschiedene Blockchiffren verwenden zu können, ohne mehrere Klassen von Hand zu implementieren\footnote{siehe \url{https://github.com/moorts/Morik/blob/main/src/plugins/encryption/CBC_Cipher.h}}.
 
 \section{GRASP}
 
